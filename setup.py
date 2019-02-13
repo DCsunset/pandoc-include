@@ -11,7 +11,7 @@ setup(
     name='pandoc-include',
     version=version,
     description='Panflute filter to allow file includes',
-    long_description=long_description
+    long_description=long_description,
     author='DCsunset',
     author_email='DCsunset@protonmail.com',
     license='MIT',
