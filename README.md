@@ -43,7 +43,7 @@ $include ../somefolder/somefile
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
 
-** Recursive include is supported **
+Recursive include is supported from v0.3.0.
 
 If no extension was given, ".md" is assumed.
 
