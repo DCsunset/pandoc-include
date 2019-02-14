@@ -2,7 +2,7 @@ from setuptools import setup
 from os import path
 import pypandoc
 
-version = '0.1.1'
+version = '0.1.2'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 
@@ -21,6 +21,8 @@ setup(
     url='https://github.com/DCsunset/pandoc-include',
     
     install_requires=['panflute>=1'],
+    # Add to lib so that it can be included
+    py_modules=['pandoc_include'],
     entry_points={
         'console_scripts': [
             'pandoc-include = pandoc_include:main'
