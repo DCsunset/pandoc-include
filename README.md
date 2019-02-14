@@ -2,7 +2,7 @@
 
 Pandoc filter to allow file includes.
 
-The filter script is originally from
+The filter script is based on
 [User Guide for Panflute](http://scorreia.com/software/panflute/guide.html#using-the-included-batteries).
 This repository is to provide a simple way to install and use it.
 
