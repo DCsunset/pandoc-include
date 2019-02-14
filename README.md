@@ -18,6 +18,16 @@ pip install --user pandoc-include
 
 ## Usage
 
+### Command
+
+To use this filter, add to pandoc command
+
+```
+pandoc input.md --filter pandoc-include -o output.pdf
+```
+
+### Syntax
+
 Each include statement has its own line and has the syntax:
 
 ```
