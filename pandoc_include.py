@@ -3,6 +3,10 @@ Panflute filter to allow file includes
 
 Each include statement has its own line and has the syntax:
 
+    !include ../somefolder/somefile
+
+Or
+
     $include ../somefolder/somefile
 
 Each include statement must be in its own paragraph. That is, in its own line
@@ -16,11 +20,15 @@ import panflute as pf
 
 
 def is_include_line(elem):
+    # Debug
+    #with open('test.out', 'w') as f:
+    #    f.write(str(elem.content))
+
     if len(elem.content) < 3:
         return False
     elif not all (isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
         return False
-    elif elem.content[0].text != '$include':
+    elif elem.content[0].text != '!include' and elem.content[0].text != '$include':
         return False
     elif type(elem.content[1]) != pf.Space:
         return False

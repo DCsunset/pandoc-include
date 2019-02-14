@@ -2,7 +2,7 @@ from setuptools import setup
 from os import path
 import pypandoc
 
-version = '0.1.2'
+version = '0.2.0'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 

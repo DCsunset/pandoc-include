@@ -7,7 +7,7 @@
 
 ## Included file
 
-$include included-1.md
+!include included-1.md
 
 ### A simple latex table
 
