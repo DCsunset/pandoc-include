@@ -3,3 +3,5 @@
 
 !include ./included-r2.md
 
+!include ./included-r2.tex
+

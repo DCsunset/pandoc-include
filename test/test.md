@@ -9,9 +9,9 @@
 
 ## Included file
 
-!include included-1.md
+!include ./included/included-1.md
 
 ### A simple latex table
 
-$include included 2.tex
+$include ./included/included 2.tex
 
