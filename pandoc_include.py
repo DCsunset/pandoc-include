@@ -53,7 +53,8 @@ def action(elem, doc):
         with open(fn) as f:
             raw = f.read()
 
-        new_elems = pf.convert_text(raw)
+        # Add recursive include support
+        new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
         
         # Alternative A:
         return new_elems
