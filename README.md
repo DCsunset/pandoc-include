@@ -43,7 +43,7 @@ $include ./somefolder/somefile
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
 
-**Leading ./ or ../ is necessary to make it work properly.**
+**Leading ./ or ../ is necessary when using relative path.**
 
 Recursive include is supported from v0.3.1.
 
