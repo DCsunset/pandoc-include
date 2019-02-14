@@ -1,11 +1,14 @@
 from setuptools import setup
 from os import path
+import pypandoc
 
-version = '0.1.0'
+version = '0.1.1'
+
+repo_base_dir = path.abspath(path.dirname(__file__))
 
 # Long description
-with open(path.join(path.dirname(__file__), 'README.md')) as f:
-    long_description = f.read()
+readme = path.join(repo_base_dir, 'README.md')
+long_description = pypandoc.convert(readme, 'rst')
 
 setup(
     name='pandoc-include',
