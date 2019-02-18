@@ -57,8 +57,12 @@ def action(elem, doc):
         cur_path = os.getcwd()
 
         # Change to included file's path so that sub-include's path is correct
-        # The filename must start with ./ or ../ to prevent errors
-        os.chdir(os.path.dirname(fn))
+        target = os.path.dirname(fn)
+        # Empty means relative to current dir
+        if not target:
+            target = '.'
+
+        os.chdir(target)
 
         # Add recursive include support
         new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])

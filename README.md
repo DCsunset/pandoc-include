@@ -31,19 +31,19 @@ pandoc input.md --filter pandoc-include -o output.pdf
 Each include statement has its own line and has the syntax:
 
 ```
-!include ./somefolder/somefile
+!include somefolder/somefile
 ```
 
 Or
 
 ```
-$include ./somefolder/somefile
+$include somefolder/somefile
 ```
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
 
-**Leading ./ or ../ is necessary when using relative path.**
+The path can be either absolute or relative to current file's directory.
 
 Recursive include is supported from v0.3.1.
 
