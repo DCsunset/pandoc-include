@@ -28,5 +28,12 @@ setup(
             'pandoc-include = pandoc_include:main'
         ]
     },
+
+    classifiers=[
+        'Environment :: Console',
+        'Intended Audience :: End Users/Desktop',
+        'Programming Language :: Python',
+        'License :: OSI Approved :: MIT License'
+    ]
 )
 
