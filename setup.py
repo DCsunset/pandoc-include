@@ -13,7 +13,7 @@ long_description = pypandoc.convert(readme, 'rst')
 setup(
     name='pandoc-include',
     version=version,
-    description='Panflute filter to allow file includes',
+    description='Pandoc filter to allow file includes',
     long_description=long_description,
     author='DCsunset',
     author_email='DCsunset@protonmail.com',

@@ -42,12 +42,10 @@ $include somefolder/somefile
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
-
 The path can be either absolute or relative to current file's directory.
+If no extension was given, ".md" is assumed.
 
 Recursive include is supported from v0.3.1.
-
-If no extension was given, ".md" is assumed.
 
 **Note:**
 The second syntax may lead to wrong highlighting when using a markdown editor.
