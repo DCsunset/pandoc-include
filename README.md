@@ -46,7 +46,8 @@ The path can be either absolute or relative to current file's directory.
 If no extension was given, ".md" is assumed.
 
 For example,
-it can be used to separate chapters into different files:
+it can be used to separate chapters into different files,
+or include some latex files:
 
 ```markdown
 
@@ -61,6 +62,8 @@ toc: true
 !include chapters/chap02.md
 
 !include chapters/chap03.md
+
+!include data/table.tex
 
 ```
 
