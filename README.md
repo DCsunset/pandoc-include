@@ -9,7 +9,9 @@ This repository is to provide a simple way to install and use it.
 
 ## Installation
 
-Use pip to install:
+First, install python and python-pip.
+
+Then, use pip to install:
 
 ```
 pip install --user pandoc-include
