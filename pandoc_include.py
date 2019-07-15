@@ -42,13 +42,23 @@ def get_filename(elem):
         fn += '.md'
     return fn
 
+# Record whether the entry has been entered
+entryEnter = False
 
 def action(elem, doc):
+    global entryEnter
+
     if isinstance(elem, pf.Para) and is_include_line(elem):
-        
+        # The entry file's directory
+        entry = doc.get_metadata('include-entry')
+        if not entryEnter and entry:
+            os.chdir(entry)
+            entryEnter = True
+
         fn = get_filename(elem)
+
         if not os.path.isfile(fn):
-            return
+            raise ValueError('Included file not found: ' + fn + ' ' + entry + ' ' + os.getcwd())
         
         with open(fn) as f:
             raw = f.read()

@@ -1,5 +1,5 @@
 ---
-include-entry: '.'
+include-entry: 'entryTest'
 ---
 
 # Test
@@ -13,9 +13,9 @@ include-entry: '.'
 
 ## Included file
 
-!include included/included-1.md
+!include subincluded/included-1.md
 
 ### A simple latex table
 
-$include included/included 2.tex
+$include subincluded/included 2.tex
 

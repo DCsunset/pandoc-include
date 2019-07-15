@@ -1,0 +1,15 @@
+DocMetaMap()Str(Code)Header(Str(Code); level=3, identifier='code')CodeBlock(print('Hello World'); classes=['python'])Str(!include)SpaceStr(./included-r1.md)Para(Str(!include) Space Str(./included-r1.md))MetaMap()Str(This)SpaceStr(is)SpaceStr(a)SpaceStr(level)SpaceStr(1)SpaceStr(recursive)SpaceStr(include)Strong(Str(This) Space Str(is) Space Str(a) Space Str(level) Space Str(1) Space Str(recursive) Space Str(include))Para(Strong(Str(This) Space Str(is) Space Str(a) Space Str(level) Space Str(1) Space Str(recursive) Space Str(include)))Str(!include)SpaceStr(./included-r2.md)Para(Str(!include) Space Str(./included-r2.md))MetaMap()Str(This)SpaceStr(is)SpaceStr(a)SpaceStr(level)SpaceStr(2)SpaceStr(recursive)SpaceStr(include)Strong(Str(This) Space Str(is) Space Str(a) Space Str(level) Space Str(2) Space Str(recursive) Space Str(include))Para(Strong(Str(This) Space Str(is) Space Str(a) Space Str(level) Space Str(2) Space Str(recursive) Space Str(include)))DocStr(!include)SpaceStr(./included-r2.tex)Para(Str(!include) Space Str(./included-r2.tex))Str(A)SpaceStr(simple)SpaceStr(table)MetaInlines(Str(A) Space Str(simple) Space Str(table))MetaMap('title')RawBlock(\begin{table}[h]
+    \begin{tabular}{lll}
+        No. & Score & Rank \\\hline
+        4 & 94 & - \\
+        5 & 99 & - \\
+        6 & 89 & -
+    \end{tabular}
+\end{table}; format='tex')DocDocDocStr(A)SpaceStr(simple)SpaceStr(table)MetaInlines(Str(A) Space Str(simple) Space Str(table))MetaMap('title')RawBlock(\begin{table}[h]
+    \begin{tabular}{lll}
+        No. & Score & Rank \\\hline
+        1 & 94 & 2 \\
+        2 & 99 & 1 \\
+        3 & 89 & 3
+    \end{tabular}
+\end{table}; format='tex')Doc
