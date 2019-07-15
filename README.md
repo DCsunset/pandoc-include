@@ -36,10 +36,12 @@ include-entry: 'path'
 ---
 ```
 
+This option is to make recursive includes work.
+
 The `include-entry` option is a path relative to current working directory or absolute
 where the entry file (the initial file) locates.
 It should be placed in the entry file only, not in the included files.
-The default `include-entry` value is `.`.
+It is optional and the default `include-entry` value is `.`.
 
 For example, to compile a file in current directory, no header is needed:
 
@@ -47,13 +49,13 @@ For example, to compile a file in current directory, no header is needed:
 pandoc test.md --filter pandoc-include -o test.pdf
 ```
 
-However to compile a file not in current directory, like:
+However, to compile a file not in current directory, like:
 
 ```
 pandoc dir/test.md --filter pandoc-include -o test.pdf
 ```
 
-The header should now be set to: `include-entry: dir`.
+The header should now be set to: `include-entry: 'dir'`.
 
 
 ### Syntax
