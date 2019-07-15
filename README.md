@@ -28,6 +28,34 @@ To use this filter, add to pandoc command
 pandoc input.md --filter pandoc-include -o output.pdf
 ```
 
+### Header option
+
+```yaml
+---
+include-entry: 'path'
+---
+```
+
+The `include-entry` option is a path relative to current working directory or absolute
+where the entry file (the initial file) locates.
+It should be placed in the entry file only, not in the included files.
+The default `include-entry` value is `.`.
+
+For example, to compile a file in current directory, no header is needed:
+
+```
+pandoc test.md --filter pandoc-include -o test.pdf
+```
+
+However to compile a file not in current directory, like:
+
+```
+pandoc dir/test.md --filter pandoc-include -o test.pdf
+```
+
+The header should now be set to: `include-entry: dir`.
+
+
 ### Syntax
 
 Each include statement has its own line and has the syntax:
@@ -44,7 +72,10 @@ $include somefolder/somefile
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
-The path can be either absolute or relative to current file's directory.
+
+The path can be either absolute or relative to the **current** file's directory.
+(If the include statement is in an included file,
+then the path is relative to the included file itself.)
 If no extension was given, ".md" is assumed.
 
 For example,
