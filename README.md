@@ -100,7 +100,7 @@ toc: true
 
 ```
 
-Recursive include is supported from v0.3.1.
+Recursive include is supported from v0.4.0.
 
 **Note:**
 The second syntax may lead to wrong highlighting when using a markdown editor.
