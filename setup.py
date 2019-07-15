@@ -8,12 +8,14 @@ repo_base_dir = path.abspath(path.dirname(__file__))
 
 # Long description
 readme = path.join(repo_base_dir, 'README.md')
-long_description = pypandoc.convert(readme, 'rst')
+with open(readme) as f:
+    long_description = f.read()
 
 setup(
     name='pandoc-include',
     version=version,
     description='Pandoc filter to allow file includes',
+    long_description_content_type='text/markdown',
     long_description=long_description,
     author='DCsunset',
     author_email='DCsunset@protonmail.com',

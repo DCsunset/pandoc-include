@@ -30,7 +30,7 @@ pandoc input.md --filter pandoc-include -o output.pdf
 
 ### Header option
 
-```yaml
+```
 ---
 include-entry: 'path'
 ---
