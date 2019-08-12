@@ -21,6 +21,8 @@ Then, use pip to install:
 pip install --user pandoc-include
 ```
 
+After installation,
+make sure that the `pandoc-include` executable is put in the directory which is in *the PATH environment*.
 
 ## Usage
 
