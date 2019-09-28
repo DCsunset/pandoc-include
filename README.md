@@ -10,6 +10,13 @@ The filter script is based on
 [User Guide for Panflute](http://scorreia.com/software/panflute/guide.html#using-the-included-batteries).
 This repository is to provide a simple way to install and use it.
 
+## Features
+
+* Recursive include (supported from v0.4.0): It depends on `include-entry` header to work
+* Yaml header Merging (supported from v0.5.0):
+When an included file has its header, it will be merged into the current header.
+If there's a conflict, the original header of the current file remains.
+
 
 ## Installation
 
@@ -23,6 +30,7 @@ pip install --user pandoc-include
 
 After installation,
 make sure that the `pandoc-include` executable is put in the directory which is in **the PATH environment**.
+
 
 ## Usage
 
