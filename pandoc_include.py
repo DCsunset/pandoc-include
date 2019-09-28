@@ -5,9 +5,13 @@ Each include statement has its own line and has the syntax:
 
     !include ../somefolder/somefile
 
+    !include-header ./file.md
+
 Or
 
     $include ../somefolder/somefile
+
+    $include-header ./file.md
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
@@ -20,20 +24,23 @@ import panflute as pf
 
 
 def is_include_line(elem):
-    # Debug
-    #with open('test.out', 'w') as f:
-    #    f.write(str(elem.content))
-
+    firstWord = elem.content[0].text
+    # Return 0 for false, 1 for include file, 2 for include header
     if len(elem.content) < 3:
-        return False
+        return 0
     elif not all (isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
-        return False
-    elif elem.content[0].text != '!include' and elem.content[0].text != '$include':
-        return False
+        return 0
+    elif firstWord != '!include' and firstWord != '$include' and \
+        firstWord != '!include-header' and firstWord != '$include-header':
+        return 0
     elif type(elem.content[1]) != pf.Space:
-        return False
+        return 0
+    elif firstWord == '!include' or firstWord == '$include':
+        # include file
+        return 1
     else:
-        return True
+        # include header
+        return 2
 
 
 def get_filename(elem):
@@ -48,7 +55,11 @@ entryEnter = False
 def action(elem, doc):
     global entryEnter
 
-    if isinstance(elem, pf.Para) and is_include_line(elem):
+    if isinstance(elem, pf.Para):
+        includeType = is_include_line(elem)
+        if includeType == 0:
+            return
+
         # The entry file's directory
         entry = doc.get_metadata('include-entry')
         if not entryEnter and entry:
@@ -75,9 +86,11 @@ def action(elem, doc):
         os.chdir(target)
 
         # Add recursive include support
-        new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
+        new_elems = None
+        if includeType == 1:
+            new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
 
-        # Get metadata
+        # Get metadata (Recursive header include)
         new_metadata = pf.convert_text(raw, standalone=True, extra_args=['--filter=pandoc-include']).get_metadata()
 
         # Merge metadata

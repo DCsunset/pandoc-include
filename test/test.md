@@ -1,6 +1,5 @@
 ---
 include-entry: '.'
-title: Entry
 test:
 	adsf: a
 	base:
@@ -16,6 +15,10 @@ test:
 	* included-r1.md
 		* included-r2.md
 * included 2.tex
+
+## Include header
+
+!include-header included/included-header.md
 
 ## Included file
 
