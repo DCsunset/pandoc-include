@@ -1,5 +1,11 @@
 ---
 include-entry: '.'
+title: Entry
+test:
+	adsf: a
+	base:
+		- b
+		- c
 ---
 
 # Test

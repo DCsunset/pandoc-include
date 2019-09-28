@@ -77,6 +77,13 @@ def action(elem, doc):
         # Add recursive include support
         new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
 
+        # Get metadata
+        new_metadata = pf.convert_text(raw, standalone=True, extra_args=['--filter=pandoc-include']).get_metadata()
+
+        # Merge metadata
+        new_metadata.update(doc.get_metadata())
+        doc.metadata = new_metadata
+
         # Restore to current path
         os.chdir(cur_path)
         
