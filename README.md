@@ -4,7 +4,7 @@
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pandoc-include)](https://pypi.org/project/pandoc-include/)
 [![GitHub](https://img.shields.io/github/license/DCsunset/pandoc-include?color=blue)](https://github.com/DCsunset/pandoc-include)
 
-Pandoc filter to allow file includes.
+Pandoc filter to allow file and header includes.
 
 The filter script is based on
 [User Guide for Panflute](http://scorreia.com/software/panflute/guide.html#using-the-included-batteries).
@@ -16,7 +16,7 @@ This repository is to provide a simple way to install and use it.
 * Yaml header Merging (supported from v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
-* Header include only (supported from v0.5.1): Use `!include-header file.md` to include Yaml header from file.
+* Header include (supported from v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
 
 
 ## Installation
@@ -80,7 +80,7 @@ Each include statement has its own line and has the syntax:
 ```
 !include somefolder/somefile
 
-!include-header file.md
+!include-header file.yaml
 ```
 
 Or
@@ -88,7 +88,7 @@ Or
 ```
 $include somefolder/somefile
 
-$include-header file.md
+$include-header file.yaml
 ```
 
 Each include statement must be in its own paragraph. That is, in its own line
@@ -99,8 +99,12 @@ The path can be either absolute or relative to the **current** file's directory.
 then the path is relative to the included file itself.)
 If no extension was given, ".md" is assumed.
 
-For example,
-it can be used to separate chapters into different files,
+
+## Examples
+
+### File include
+
+File include can be used to separate chapters into different files,
 or include some latex files:
 
 ```markdown
@@ -123,9 +127,56 @@ toc: true
 
 Recursive include is supported from v0.4.0.
 
+### Header include
+
+For header include, it is useful to define a header template
+and include it in many files.
+
+For example, in the `header.yaml`, we can define basic info:
+
+```yaml
+name: xxx
+school: yyy
+email: zzz
+```
+
+In the `main.md`, we can extend the header:
+
+```markdown
+
+---
+title: Title
+---
+
+!include-header header.yaml
+
+# Section
+
+Body
+
+```
+
+The `main.md` then is equivalent to the follow markdown:
+
+```markdown
+
+---
+title: Title
+name: xxx
+school: yyy
+email: zzz
+---
+
+# Section
+
+Body
+
+```
+
 **Note:**
 The second syntax may lead to wrong highlighting when using a markdown editor.
 If it happens, use the first syntax.
+
 
 ## License
 

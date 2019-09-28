@@ -2,7 +2,7 @@ from setuptools import setup
 from os import path
 import pypandoc
 
-version = '0.5.1'
+version = '0.6.0'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 
@@ -14,7 +14,7 @@ with open(readme) as f:
 setup(
     name='pandoc-include',
     version=version,
-    description='Pandoc filter to allow file includes',
+    description='Pandoc filter to allow file and header includes',
     long_description_content_type='text/markdown',
     long_description=long_description,
     author='DCsunset',
