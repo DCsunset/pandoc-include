@@ -16,6 +16,7 @@ This repository is to provide a simple way to install and use it.
 * Yaml header Merging (supported from v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
+* Header include only (supported from v0.5.1): Use `!include-header file.md` to include Yaml header from file.
 
 
 ## Installation
@@ -78,12 +79,16 @@ Each include statement has its own line and has the syntax:
 
 ```
 !include somefolder/somefile
+
+!include-header file.md
 ```
 
 Or
 
 ```
 $include somefolder/somefile
+
+$include-header file.md
 ```
 
 Each include statement must be in its own paragraph. That is, in its own line
