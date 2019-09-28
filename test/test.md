@@ -18,7 +18,7 @@ test:
 
 ## Include header
 
-!include-header included/included-header.md
+!include-header included/header.yaml
 
 ## Included file
 

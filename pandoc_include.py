@@ -5,13 +5,13 @@ Each include statement has its own line and has the syntax:
 
     !include ../somefolder/somefile
 
-    !include-header ./file.md
+    !include-header ./header.yaml
 
 Or
 
     $include ../somefolder/somefile
 
-    $include-header ./file.md
+    $include-header ./header.yaml
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
@@ -21,21 +21,21 @@ If no extension was given, ".md" is assumed.
 
 import os
 import panflute as pf
-
+import yaml
+from collections import OrderedDict
 
 def is_include_line(elem):
-    firstWord = elem.content[0].text
     # Return 0 for false, 1 for include file, 2 for include header
     if len(elem.content) < 3:
         return 0
     elif not all (isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
         return 0
-    elif firstWord != '!include' and firstWord != '$include' and \
-        firstWord != '!include-header' and firstWord != '$include-header':
+    elif elem.content[0].text != '!include' and elem.content[0].text != '$include' and \
+        elem.content[0].text != '!include-header' and elem.content[0].text != '$include-header':
         return 0
     elif type(elem.content[1]) != pf.Space:
         return 0
-    elif firstWord == '!include' or firstWord == '$include':
+    elif elem.content[0].text == '!include' or elem.content[0].text == '$include':
         # include file
         return 1
     else:
@@ -43,10 +43,13 @@ def is_include_line(elem):
         return 2
 
 
-def get_filename(elem):
+def get_filename(elem, includeType):
     fn = pf.stringify(elem, newlines=False).split(maxsplit=1)[1]
     if not os.path.splitext(fn)[1]:
-        fn += '.md'
+        if includeType == 1:
+            fn += '.md'
+        else:
+            fn += '.yaml'
     return fn
 
 # Record whether the entry has been entered
@@ -66,7 +69,7 @@ def action(elem, doc):
             os.chdir(entry)
             entryEnter = True
 
-        fn = get_filename(elem)
+        fn = get_filename(elem, includeType)
 
         if not os.path.isfile(fn):
             raise ValueError('Included file not found: ' + fn + ' ' + entry + ' ' + os.getcwd())
@@ -87,11 +90,16 @@ def action(elem, doc):
 
         # Add recursive include support
         new_elems = None
+        new_metadata = None
         if includeType == 1:
             new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
 
-        # Get metadata (Recursive header include)
-        new_metadata = pf.convert_text(raw, standalone=True, extra_args=['--filter=pandoc-include']).get_metadata()
+            # Get metadata (Recursive header include)
+            new_metadata = pf.convert_text(raw, standalone=True, extra_args=['--filter=pandoc-include']).get_metadata()
+        else:
+            # Read header from yaml
+            new_metadata = yaml.load(raw)
+            new_metadata = OrderedDict(new_metadata)
 
         # Merge metadata
         new_metadata.update(doc.get_metadata())
