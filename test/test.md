@@ -1,5 +1,6 @@
 ---
 include-entry: '.'
+listings: true
 test:
 	adsf: a
 	base:
