@@ -1,6 +1,8 @@
 ---
 include-entry: '.'
 listings: true
+title: Test
+date: \today{}
 test:
 	adsf: a
 	base:
