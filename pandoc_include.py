@@ -24,14 +24,15 @@ import panflute as pf
 import yaml
 from collections import OrderedDict
 
+
 def is_include_line(elem):
     # Return 0 for false, 1 for include file, 2 for include header
     if len(elem.content) < 3:
         return 0
-    elif not all (isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
+    elif not all(isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
         return 0
     elif elem.content[0].text != '!include' and elem.content[0].text != '$include' and \
-        elem.content[0].text != '!include-header' and elem.content[0].text != '$include-header':
+            elem.content[0].text != '!include-header' and elem.content[0].text != '$include-header':
         return 0
     elif type(elem.content[1]) != pf.Space:
         return 0
@@ -52,8 +53,10 @@ def get_filename(elem, includeType):
             fn += '.yaml'
     return fn
 
+
 # Record whether the entry has been entered
 entryEnter = False
+
 
 def action(elem, doc):
     global entryEnter
@@ -72,8 +75,9 @@ def action(elem, doc):
         fn = get_filename(elem, includeType)
 
         if not os.path.isfile(fn):
-            raise ValueError('Included file not found: ' + fn + ' ' + entry + ' ' + os.getcwd())
-        
+            raise ValueError('Included file not found: ' +
+                             fn + ' ' + entry + ' ' + os.getcwd())
+
         with open(fn, encoding="utf-8") as f:
             raw = f.read()
 
@@ -92,22 +96,29 @@ def action(elem, doc):
         new_elems = None
         new_metadata = None
         if includeType == 1:
-            new_elems = pf.convert_text(raw, extra_args=['--filter=pandoc-include'])
+            new_elems = pf.convert_text(
+                raw, extra_args=['--filter=pandoc-include'])
 
             # Get metadata (Recursive header include)
-            new_metadata = pf.convert_text(raw, standalone=True, extra_args=['--filter=pandoc-include']).get_metadata()
+            new_metadata = pf.convert_text(raw, standalone=True, extra_args=[
+                                           '--filter=pandoc-include']).get_metadata()
+
         else:
             # Read header from yaml
             new_metadata = yaml.load(raw)
             new_metadata = OrderedDict(new_metadata)
 
+        with open('test.out', 'w+') as f:
+            f.write(str(doc.get_metadata()))
+
         # Merge metadata
-        new_metadata.update(doc.get_metadata())
-        doc.metadata = new_metadata
+        for key in new_metadata:
+            if not key in doc.get_metadata():
+                doc.metadata[key] = new_metadata[key]
 
         # Restore to current path
         os.chdir(cur_path)
-        
+
         # Alternative A:
         return new_elems
         # Alternative B:
@@ -116,9 +127,8 @@ def action(elem, doc):
 
 
 def main(doc=None):
-    return pf.run_filter(action, doc=doc) 
+    return pf.run_filter(action, doc=doc)
 
 
 if __name__ == '__main__':
     main()
-
