@@ -1,7 +1,7 @@
 from setuptools import setup
 from os import path
 
-version = '0.6.1'
+version = '0.6.2'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 
@@ -20,7 +20,7 @@ setup(
     author_email='DCsunset@protonmail.com',
     license='MIT',
     url='https://github.com/DCsunset/pandoc-include',
-    
+
     install_requires=['panflute>=1'],
     # Add to lib so that it can be included
     py_modules=['pandoc_include'],
@@ -37,4 +37,3 @@ setup(
         'License :: OSI Approved :: MIT License'
     ]
 )
-
