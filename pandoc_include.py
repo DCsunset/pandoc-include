@@ -108,9 +108,6 @@ def action(elem, doc):
             new_metadata = yaml.load(raw)
             new_metadata = OrderedDict(new_metadata)
 
-        with open('test.out', 'w+') as f:
-            f.write(str(doc.get_metadata()))
-
         # Merge metadata
         for key in new_metadata:
             if not key in doc.get_metadata():
