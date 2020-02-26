@@ -22,6 +22,7 @@ If no extension was given, ".md" is assumed.
 import os
 import panflute as pf
 import yaml
+import json
 from collections import OrderedDict
 
 
@@ -56,15 +57,43 @@ def get_filename(elem, includeType):
 
 # Record whether the entry has been entered
 entryEnter = False
+# Inherited options
+options = None
 
+temp_filename = '.temp.pandoc-include'
 
 def action(elem, doc):
     global entryEnter
+    global options
 
     if isinstance(elem, pf.Para):
         includeType = is_include_line(elem)
         if includeType == 0:
             return
+
+        # Try to read inherited options from temp file
+        if options is None:
+            try:
+                with open(temp_filename, 'r') as f:
+                    options = json.load(f)
+            except:
+                options = {}
+                pass
+
+        # pandoc options
+        pandoc_options = doc.get_metadata('pandoc-options')
+        if not pandoc_options:
+            if 'pandoc-options' in options:
+                pandoc_options = options['pandoc-options']
+            else:
+                # default options
+                pandoc_options = ['--filter=pandoc-include']
+        else:
+            # Replace em-dash to double dashes in smart typography
+            for i in range(len(pandoc_options)):
+                pandoc_options[i] = pandoc_options[i].replace('\u2013', '--')
+
+            options['pandoc-options'] = pandoc_options
 
         # The entry file's directory
         entry = doc.get_metadata('include-entry')
@@ -91,17 +120,19 @@ def action(elem, doc):
             target = '.'
 
         os.chdir(target)
+        # save options
+        with open(temp_filename, 'w+') as f:
+            json.dump(options, f)
 
         # Add recursive include support
         new_elems = None
         new_metadata = None
         if includeType == 1:
             new_elems = pf.convert_text(
-                raw, extra_args=['--filter=pandoc-include'])
+                raw, extra_args=pandoc_options)
 
             # Get metadata (Recursive header include)
-            new_metadata = pf.convert_text(raw, standalone=True, extra_args=[
-                                           '--filter=pandoc-include']).get_metadata()
+            new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata()
 
         else:
             # Read header from yaml
@@ -113,6 +144,8 @@ def action(elem, doc):
             if not key in doc.get_metadata():
                 doc.metadata[key] = new_metadata[key]
 
+        # delete temp file
+        os.remove(temp_filename)
         # Restore to current path
         os.chdir(cur_path)
 
