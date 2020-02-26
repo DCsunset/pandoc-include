@@ -4,10 +4,12 @@ listings: true
 title: Test
 date: \today{}
 test:
-	adsf: a
-	base:
-		- b
-		- c
+  adsf: a
+  base:
+    - b
+    - c
+pandoc-options:
+  - --filter=pandoc-include
 ---
 
 # Test
