@@ -12,11 +12,11 @@ This repository is to provide a simple way to install and use it.
 
 ## Features
 
-* Recursive include (supported from v0.4.0): It depends on `include-entry` header to work
-* Yaml header Merging (supported from v0.5.0):
+* Recursive include (supported since v0.4.0): It depends on `include-entry` header to work
+* Yaml header Merging (supported since v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
-* Header include (supported from v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
+* Header include (supported since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
 
 
 ## Installation
@@ -43,16 +43,29 @@ To use this filter, add to pandoc command
 pandoc input.md --filter pandoc-include -o output.pdf
 ```
 
-### Header option
+### Header options
 
 ```
 ---
 include-entry: 'path'
+pandoc-options:
+  - --filter=pandoc-include
+	- <other options>
 ---
 ```
 
-This option is to make recursive includes work.
+The `pandoc-options` option is **a list** to specify the pandoc options when recursively processing included files.
+By default, the included file will **inherit** the `pandoc-options` from its parent file, **unless** specified in its own file.
 
+To make the recursive includes work, `--filter=pandoc-include` is **necessary**.
+The default value of `pandoc-options` is:
+
+```
+pandoc-options:
+  - --filter=pandoc-include
+```
+
+The `include-entry` option is to make recursive includes work.
 The `include-entry` option is a path relative to current working directory or absolute
 where the entry file (the initial file) locates.
 It should be placed in the entry file only, not in the included files.
