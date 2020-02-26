@@ -50,7 +50,7 @@ pandoc input.md --filter pandoc-include -o output.pdf
 include-entry: 'path'
 pandoc-options:
   - --filter=pandoc-include
-	- <other options>
+  - <other options>
 ---
 ```
 
