@@ -112,6 +112,9 @@ The path can be either absolute or relative to the **current** file's directory.
 then the path is relative to the included file itself.)
 If no extension was given, ".md" is assumed.
 
+The second syntax may lead to wrong highlighting when using a markdown editor.
+If it happens, use the first syntax.
+
 
 ## Examples
 
@@ -185,11 +188,6 @@ email: zzz
 Body
 
 ```
-
-**Note:**
-The second syntax may lead to wrong highlighting when using a markdown editor.
-If it happens, use the first syntax.
-
 
 ## License
 
