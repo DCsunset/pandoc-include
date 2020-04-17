@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Panflute filter to allow file includes
 
@@ -104,11 +106,10 @@ def action(elem, doc):
         fn = get_filename(elem, includeType)
 
         if not os.path.isfile(fn):
-            raise ValueError('Included file not found: ' +
-                             fn + ' ' + entry + ' ' + os.getcwd())
-
-        with open(fn, encoding="utf-8") as f:
-            raw = f.read()
+            raw = '[`%s`](%s)\n' % (fn, fn if os.path.isabs(fn) else os.path.join(os.getcwd(), fn))
+        else:
+            with open(fn, encoding="utf-8") as f:
+                raw = f.read()
 
         # Save current path
         cur_path = os.getcwd()
