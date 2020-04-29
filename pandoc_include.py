@@ -23,6 +23,7 @@ import os
 import panflute as pf
 import yaml
 import json
+import tempfile
 from collections import OrderedDict
 
 
@@ -60,7 +61,8 @@ entryEnter = False
 # Inherited options
 options = None
 
-temp_filename = '.temp.pandoc-include'
+tf = tempfile.NamedTemporaryFile(delete=True)
+temp_filename = tf.name
 
 def action(elem, doc):
     global entryEnter
@@ -144,8 +146,6 @@ def action(elem, doc):
             if not key in doc.get_metadata():
                 doc.metadata[key] = new_metadata[key]
 
-        # delete temp file
-        os.remove(temp_filename)
         # Restore to current path
         os.chdir(cur_path)
 
