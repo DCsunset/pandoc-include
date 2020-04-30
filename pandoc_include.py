@@ -144,8 +144,9 @@ def action(elem, doc):
             if not key in doc.get_metadata():
                 doc.metadata[key] = new_metadata[key]
 
-        # delete temp file
-        os.remove(temp_filename)
+        # delete temp file (the file might have been deleted in subsequent executions)
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
         # Restore to current path
         os.chdir(cur_path)
 
