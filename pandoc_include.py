@@ -105,7 +105,7 @@ def action(elem, doc):
 
         if not os.path.isfile(fn):
             raise ValueError('Included file not found: ' +
-                             fn + ' ' + entry + ' ' + os.getcwd())
+                             '%r %r %r' % (fn, entry, os.getcwd()))
 
         with open(fn, encoding="utf-8") as f:
             raw = f.read()
