@@ -1,3 +1,16 @@
+## [0.7.2](https://github.com/DCsunset/pandoc-include/compare/v0.7.1...v0.7.2) (2020-04-30)
+
+
+
+## [0.7.1](https://github.com/DCsunset/pandoc-include/compare/v0.7.0...v0.7.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* remove temp file if it exists ([610ab42](https://github.com/DCsunset/pandoc-include/commit/610ab42f6a12397a379c55eb04f8f3f5e1cd84d0))
+
+
+
 # [0.7.0](https://github.com/DCsunset/pandoc-include/compare/v0.6.3...v0.7.0) (2020-02-26)
 
 
@@ -22,4 +35,26 @@
 ### Bug Fixes
 
 * fix latex in header ([69b60e1](https://github.com/DCsunset/pandoc-include/commit/69b60e1dfd54f08e1bc5fbc122252965eb7bc0bd))
+
+
+
+# [0.6.0](https://github.com/DCsunset/pandoc-include/compare/v0.5.1...v0.6.0) (2019-09-28)
+
+
+
+## [0.5.1](https://github.com/DCsunset/pandoc-include/compare/v0.5.0...v0.5.1) (2019-09-28)
+
+
+
+# [0.5.0](https://github.com/DCsunset/pandoc-include/compare/v0.4.1...v0.5.0) (2019-09-28)
+
+
+
+## [0.4.1](https://github.com/DCsunset/pandoc-include/compare/v0.4.0...v0.4.1) (2019-09-25)
+
+
+
+# 0.4.0 (2019-07-15)
+
+
 
