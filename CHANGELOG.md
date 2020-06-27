@@ -1,3 +1,12 @@
+## [0.7.3](https://github.com/DCsunset/pandoc-include/compare/v0.7.2...v0.7.3) (2020-06-27)
+
+
+### Bug Fixes
+
+* fix deprecated load function ([e536320](https://github.com/DCsunset/pandoc-include/commit/e5363203375dd279913e12aab1ed81bbc3d95f83))
+
+
+
 ## [0.7.2](https://github.com/DCsunset/pandoc-include/compare/v0.7.1...v0.7.2) (2020-04-30)
 
 
