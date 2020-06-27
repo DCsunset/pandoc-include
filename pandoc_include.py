@@ -136,7 +136,7 @@ def action(elem, doc):
 
         else:
             # Read header from yaml
-            new_metadata = yaml.load(raw)
+            new_metadata = yaml.safe_load(raw)
             new_metadata = OrderedDict(new_metadata)
 
         # Merge metadata
