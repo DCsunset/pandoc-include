@@ -1,3 +1,12 @@
+## [0.8.1](https://github.com/DCsunset/pandoc-include/compare/v0.8.0...v0.8.1) (2020-09-29)
+
+
+### Bug Fixes
+
+* fix dependencies ([7650adb](https://github.com/DCsunset/pandoc-include/commit/7650adb76b57424ddd6d60215ff464606e23c9b1))
+
+
+
 # [0.8.0](https://github.com/DCsunset/pandoc-include/compare/v0.7.3...v0.8.0) (2020-09-29)
 
 
