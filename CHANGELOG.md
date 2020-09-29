@@ -1,3 +1,18 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.8.2](https://github.com/DCsunset/pandoc-include/compare/v0.8.1...v0.8.2) (2020-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove default extension
+
+### Bug Fixes
+
+* remove default extension ([7d1eb12](https://github.com/DCsunset/pandoc-include/commit/7d1eb12208663ae9459d774103d4237dc5919ebf))
+
 ## [0.8.1](https://github.com/DCsunset/pandoc-include/compare/v0.8.0...v0.8.1) (2020-09-29)
 
 
@@ -82,6 +97,3 @@
 
 
 # 0.4.0 (2019-07-15)
-
-
-
