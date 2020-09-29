@@ -1,7 +1,7 @@
 from setuptools import setup
 from os import path
 
-version = '0.8.0'
+version = '0.8.1'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 
@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/DCsunset/pandoc-include',
 
-    install_requires=['panflute>=1'],
+    install_requires=['panflute>=1', 'natsort>=7'],
     # Add to lib so that it can be included
     py_modules=['pandoc_include'],
     entry_points={
