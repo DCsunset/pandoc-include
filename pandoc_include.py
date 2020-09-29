@@ -33,11 +33,6 @@ def is_include_line(elem):
 
 def get_filename(elem, includeType):
     fn = pf.stringify(elem, newlines=False).split(maxsplit=1)[1]
-    if not os.path.splitext(fn)[1]:
-        if includeType == 1:
-            fn += '.md'
-        else:
-            fn += '.yaml'
     return fn
 
 
