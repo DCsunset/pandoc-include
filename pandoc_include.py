@@ -1,28 +1,14 @@
 """
 Panflute filter to allow file includes
-
-Each include statement has its own line and has the syntax:
-
-    !include ../somefolder/somefile
-
-    !include-header ./header.yaml
-
-Or
-
-    $include ../somefolder/somefile
-
-    $include-header ./header.yaml
-
-Each include statement must be in its own paragraph. That is, in its own line
-and separated by blank lines.
-
-If no extension was given, ".md" is assumed.
 """
 
 import os
 import panflute as pf
 import yaml
 import json
+import glob
+import sys
+from natsort import natsorted
 from collections import OrderedDict
 
 
@@ -100,61 +86,86 @@ def action(elem, doc):
         if not entryEnter and entry:
             os.chdir(entry)
             entryEnter = True
-
-        fn = get_filename(elem, includeType)
-
-        if not os.path.isfile(fn):
-            raise ValueError('Included file not found: ' +
-                             '%r %r %r' % (fn, entry, os.getcwd()))
-
-        with open(fn, encoding="utf-8") as f:
-            raw = f.read()
-
-        # Save current path
-        cur_path = os.getcwd()
-
-        # Change to included file's path so that sub-include's path is correct
-        target = os.path.dirname(fn)
-        # Empty means relative to current dir
-        if not target:
-            target = '.'
-
-        os.chdir(target)
-        # save options
-        with open(temp_filename, 'w+') as f:
-            json.dump(options, f)
-
-        # Add recursive include support
-        new_elems = None
-        new_metadata = None
-        if includeType == 1:
-            new_elems = pf.convert_text(
-                raw, extra_args=pandoc_options)
-
-            # Get metadata (Recursive header include)
-            new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata()
-
+        
+        # file order (natural, alphabetical, shell_default)
+        file_order = doc.get_metadata('file-order')
+        if not file_order:
+            if 'file-order' in options:
+                file_order = options['pandoc-options']
+            else:
+                file_order = 'natural'
         else:
-            # Read header from yaml
-            new_metadata = yaml.safe_load(raw)
-            new_metadata = OrderedDict(new_metadata)
+            options['file-order'] = file_order
 
-        # Merge metadata
-        for key in new_metadata:
-            if not key in doc.get_metadata():
-                doc.metadata[key] = new_metadata[key]
 
-        # delete temp file (the file might have been deleted in subsequent executions)
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
-        # Restore to current path
-        os.chdir(cur_path)
+        name = get_filename(elem, includeType)
+        # Enable shell-style wildcards
+        files = glob.glob(name)
+        if len(files) == 0:
+            print('[Warn] included file not found: ' + name, file=sys.stderr)
 
-        # Alternative A:
-        return new_elems
-        # Alternative B:
-        # div = pf.Div(*new_elems, attributes={'source': fn})
-        # return div
+        # order
+        if file_order == 'natural':
+            files = natsorted(files)
+        elif file_order == 'alphabetical':
+            files = sorted(files)
+        elif file_order == 'shell_default':
+            pass
+        else:
+            raise ValueError('Invalid file order: ' + file_order)
+
+        elements = []
+        for fn in files:
+            if not os.path.isfile(fn):
+                continue
+
+            with open(fn, encoding="utf-8") as f:
+                raw = f.read()
+
+            # Save current path
+            cur_path = os.getcwd()
+
+            # Change to included file's path so that sub-include's path is correct
+            target = os.path.dirname(fn)
+            # Empty means relative to current dir
+            if not target:
+                target = '.'
+
+            os.chdir(target)
+            # save options
+            with open(temp_filename, 'w+') as f:
+                json.dump(options, f)
+
+            # Add recursive include support
+            new_elems = None
+            new_metadata = None
+            if includeType == 1:
+                new_elems = pf.convert_text(
+                    raw, extra_args=pandoc_options)
+
+                # Get metadata (Recursive header include)
+                new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata()
+
+            else:
+                # Read header from yaml
+                new_metadata = yaml.safe_load(raw)
+                new_metadata = OrderedDict(new_metadata)
+
+            # Merge metadata
+            for key in new_metadata:
+                if not key in doc.get_metadata():
+                    doc.metadata[key] = new_metadata[key]
+
+            # delete temp file (the file might have been deleted in subsequent executions)
+            if os.path.exists(temp_filename):
+                os.remove(temp_filename)
+            # Restore to current path
+            os.chdir(cur_path)
+
+            if new_elems != None:
+                elements += new_elems
+
+        return elements
 
 
 def main(doc=None):
