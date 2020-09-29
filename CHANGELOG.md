@@ -1,3 +1,12 @@
+# [0.8.0](https://github.com/DCsunset/pandoc-include/compare/v0.7.3...v0.8.0) (2020-09-29)
+
+
+### Features
+
+* add support for shell-style wildcards ([6134ae6](https://github.com/DCsunset/pandoc-include/commit/6134ae6135a7aac57c4d859e7bacd2da0ccfbc5e))
+
+
+
 ## [0.7.3](https://github.com/DCsunset/pandoc-include/compare/v0.7.2...v0.7.3) (2020-06-27)
 
 
