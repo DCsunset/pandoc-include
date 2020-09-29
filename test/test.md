@@ -33,3 +33,7 @@ pandoc-options:
 
 $include included/included 2.tex
 
+## Include files
+
+!include included/*.md
+
