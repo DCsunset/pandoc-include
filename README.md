@@ -12,11 +12,12 @@ This repository is to provide a simple way to install and use it.
 
 ## Features
 
-* Recursive include (supported since v0.4.0): It depends on `include-entry` header to work
-* Yaml header Merging (supported since v0.5.0):
+* Unix style pathname (since v0.8.2)
+* Recursive include (since v0.4.0): It depends on `include-entry` header to work
+* Yaml header Merging (since v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
-* Header include (supported since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
+* Header include (since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
 
 
 ## Installation
@@ -108,12 +109,14 @@ Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
 
 The path can be either absolute or relative to the **current** file's directory.
-(If the include statement is in an included file,
-then the path is relative to the included file itself.)
-If no extension was given, ".md" is assumed.
+Besides, [unix-style](https://en.wikipedia.org/wiki/Glob_(programming)) pathname can used.
+(If the include statement is used in an included file,
+then the path is absolute or relative to the included file itself.)
+
 
 The second syntax may lead to wrong highlighting when using a markdown editor.
 If it happens, use the first syntax.
+Also make sure that there are no circular includes.
 
 
 ## Examples
