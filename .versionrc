@@ -1,0 +1,8 @@
+{
+	"bumpFiles": [
+		{
+			"filename": "setup.py",
+			"updater": "version-updater.js"
+		}
+	]
+}
