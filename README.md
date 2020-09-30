@@ -48,26 +48,16 @@ pandoc input.md --filter pandoc-include -o output.pdf
 
 ```
 ---
-include-entry: 'path'
+include-entry: '<path>'
+include-order: 'natural'
 pandoc-options:
   - --filter=pandoc-include
   - <other options>
 ---
 ```
 
-The `pandoc-options` option is **a list** to specify the pandoc options when recursively processing included files.
-By default, the included file will **inherit** the `pandoc-options` from its parent file, **unless** specified in its own file.
-
-To make the recursive includes work, `--filter=pandoc-include` is **necessary**.
-The default value of `pandoc-options` is:
-
-```
-pandoc-options:
-  - --filter=pandoc-include
-```
-
 The `include-entry` option is to make recursive includes work.
-The `include-entry` option is a path relative to current working directory or absolute
+Its value is a path relative to current working directory or absolute
 where the entry file (the initial file) locates.
 It should be placed in the entry file only, not in the included files.
 It is optional and the default `include-entry` value is `.`.
@@ -85,6 +75,24 @@ pandoc dir/test.md --filter pandoc-include -o test.pdf
 ```
 
 The header should now be set to: `include-entry: 'dir'`.
+
+
+The `include-order` options is to define the order of included files if the unix-style pathname matches multiple files.
+The default value is `natural`, which means using the [natural order](https://en.wikipedia.org/wiki/Natural_sort_order).
+Other possible values are `alphabetical` and `default`.
+The `default` means to keep the order returned by the Python `glob` module.
+
+
+The `pandoc-options` option is **a list** to specify the pandoc options when recursively processing included files.
+By default, the included file will **inherit** the `pandoc-options` from its parent file, **unless** specified in its own file.
+
+To make the recursive includes work, `--filter=pandoc-include` is **necessary**.
+The default value of `pandoc-options` is:
+
+```
+pandoc-options:
+  - --filter=pandoc-include
+```
 
 
 ### Syntax
