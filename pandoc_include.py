@@ -82,16 +82,15 @@ def action(elem, doc):
             os.chdir(entry)
             entryEnter = True
         
-        # file order (natural, alphabetical, shell_default)
-        file_order = doc.get_metadata('file-order')
-        if not file_order:
-            if 'file-order' in options:
-                file_order = options['pandoc-options']
+        # order of included files (natural, alphabetical, shell_default)
+        include_order = doc.get_metadata('include-order')
+        if not include_order:
+            if 'include-order' in options:
+                include_order = options['pandoc-options']
             else:
-                file_order = 'natural'
+                include_order = 'natural'
         else:
-            options['file-order'] = file_order
-
+            options['include-order'] = include_order
 
         name = get_filename(elem, includeType)
         # Enable shell-style wildcards
@@ -100,14 +99,14 @@ def action(elem, doc):
             print('[Warn] included file not found: ' + name, file=sys.stderr)
 
         # order
-        if file_order == 'natural':
+        if include_order == 'natural':
             files = natsorted(files)
-        elif file_order == 'alphabetical':
+        elif include_order == 'alphabetical':
             files = sorted(files)
-        elif file_order == 'shell_default':
+        elif include_order == 'default':
             pass
         else:
-            raise ValueError('Invalid file order: ' + file_order)
+            raise ValueError('Invalid file order: ' + include_order)
 
         elements = []
         for fn in files:
