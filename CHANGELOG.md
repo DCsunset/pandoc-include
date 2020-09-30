@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.3](https://github.com/DCsunset/pandoc-include/compare/v0.8.2...v0.8.3) (2020-09-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* fix the option name
+
+### Bug Fixes
+
+* fix the option name ([7277158](https://github.com/DCsunset/pandoc-include/commit/7277158d5aec403518de6c6ab83877b185518b24))
+
 ### [0.8.2](https://github.com/DCsunset/pandoc-include/compare/v0.8.1...v0.8.2) (2020-09-29)
 
 
