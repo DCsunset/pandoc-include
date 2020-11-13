@@ -2,6 +2,7 @@
 Panflute filter to allow file includes
 """
 
+import tempfile
 import os
 import panflute as pf
 import yaml
@@ -41,7 +42,7 @@ entryEnter = False
 # Inherited options
 options = None
 
-temp_filename = '.temp.pandoc-include'
+temp_filename = next(tempfile._get_candidate_names())
 
 def action(elem, doc):
     global entryEnter
