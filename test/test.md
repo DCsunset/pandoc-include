@@ -37,3 +37,11 @@ $include included/included 2.tex
 
 !include included/*.md
 
+
+| Key | Value |
+| --- | ----- |
+| 1   | 2     |
+| 2   | 4     |
+
+
+
