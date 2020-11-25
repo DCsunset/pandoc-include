@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/DCsunset/pandoc-include',
 
-    install_requires=['panflute>=1', 'natsort>=7'],
+    install_requires=['panflute>=2.0.5', 'natsort>=7'],
     # Add to lib so that it can be included
     py_modules=['pandoc_include'],
     entry_points={
