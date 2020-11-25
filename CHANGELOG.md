@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.4](https://github.com/DCsunset/pandoc-include/compare/v0.8.3...v0.8.4) (2020-11-25)
+
 ### [0.8.3](https://github.com/DCsunset/pandoc-include/compare/v0.8.2...v0.8.3) (2020-09-30)
 
 
