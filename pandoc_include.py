@@ -41,6 +41,8 @@ entryEnter = False
 # Inherited options
 options = None
 
+# The temp filename should be fixed
+# in order to be found by subprocesses
 temp_filename = '.temp.pandoc-include'
 
 def action(elem, doc):
@@ -52,14 +54,16 @@ def action(elem, doc):
         if includeType == 0:
             return
 
+        passOptions = False
         # Try to read inherited options from temp file
         if options is None:
-            try:
+            if os.path.isfile(temp_filename):
+                # pass options when the parent has passed it
+                passOptions = True
                 with open(temp_filename, 'r') as f:
                     options = json.load(f)
-            except:
+            else:
                 options = {}
-                pass
 
         # pandoc options
         pandoc_options = doc.get_metadata('pandoc-options')
@@ -70,6 +74,8 @@ def action(elem, doc):
                 # default options
                 pandoc_options = ['--filter=pandoc-include']
         else:
+            # pass options when they are modified
+            passOptions = True
             # Replace em-dash to double dashes in smart typography
             for i in range(len(pandoc_options)):
                 pandoc_options[i] = pandoc_options[i].replace('\u2013', '--')
@@ -108,6 +114,7 @@ def action(elem, doc):
         else:
             raise ValueError('Invalid file order: ' + include_order)
 
+
         elements = []
         for fn in files:
             if not os.path.isfile(fn):
@@ -126,9 +133,11 @@ def action(elem, doc):
                 target = '.'
 
             os.chdir(target)
-            # save options
-            with open(temp_filename, 'w+') as f:
-                json.dump(options, f)
+
+            if passOptions:
+                # pass options by temp files
+                with open(temp_filename, 'w+') as f:
+                    json.dump(options, f)
 
             # Add recursive include support
             new_elems = None
