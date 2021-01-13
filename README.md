@@ -200,6 +200,18 @@ Body
 
 ```
 
+## Trouble Shooting
+
+The pandoc command-line options are processed in order.
+If you want some options to be applied in included files,
+make sure the `--filter pandoc-include` option is specified before those options.
+
+For example, use bibliography in the included files:
+
+```
+pandoc main.md --filter pandoc-include --citeproc --bibliography=ref.bib -o main.pdf
+```
+
 ## License
 
 MIT License
