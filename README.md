@@ -12,12 +12,12 @@ This repository is to provide a simple way to install and use it.
 
 ## Features
 
+* Code include (since v0.8.5): Allow using `!include` in code blocks
 * Unix style pathname (since v0.8.2)
 * Recursive include (since v0.4.0): It depends on `include-entry` header to work
 * Yaml header Merging (since v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
-* Code include (since v0.8.5): Allow use `!include` in code blocks
 * Header include (since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
 
 
