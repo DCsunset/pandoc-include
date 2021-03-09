@@ -30,6 +30,13 @@ def is_include_line(elem):
         # include header
         return 2
 
+def is_code_include(elem):
+    slices = elem.text.split(maxsplit=1)
+    if len(slices) <= 1:
+        return False
+    if slices[0] == "!include" or slices[0] == "$include":
+        return True
+    return False
 
 def get_filename(elem, includeType):
     fn = pf.stringify(elem, newlines=False).split(maxsplit=1)[1]
@@ -169,6 +176,21 @@ def action(elem, doc):
                 elements += new_elems
 
         return elements
+    
+    elif isinstance(elem, pf.CodeBlock):
+        if not is_code_include(elem):
+            return
+        
+        # Single file
+        filename = elem.text.split(maxsplit=1)[1]
+        if not os.path.isfile(filename):
+            print('[Warn] Unable to open included file: ' + filename, file=sys.stderr)
+            return
+
+        with open(filename, encoding="utf-8") as f:
+            code = f.read()
+
+        elem.text = code
 
 
 def main(doc=None):
