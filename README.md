@@ -17,6 +17,7 @@ This repository is to provide a simple way to install and use it.
 * Yaml header Merging (since v0.5.0):
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
+* Code include (since v0.8.5): Allow use `!include` in code blocks
 * Header include (since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
 
 
@@ -82,7 +83,6 @@ The default value is `natural`, which means using the [natural order](https://en
 Other possible values are `alphabetical` and `default`.
 The `default` means to keep the order returned by the Python `glob` module.
 
-
 The `pandoc-options` option is **a list** to specify the pandoc options when recursively processing included files.
 By default, the included file will **inherit** the `pandoc-options` from its parent file, **unless** specified in its own file.
 
@@ -115,6 +115,18 @@ $include-header file.yaml
 
 Each include statement must be in its own paragraph. That is, in its own line
 and separated by blank lines.
+
+
+For code include, use `!include` statement in a code block:
+
+````markdown
+```cpp
+!include filename.cpp
+```
+````
+
+The included filename in code blocks should be a single file with an exact name.
+
 
 The path can be either absolute or relative to the **current** file's directory.
 Besides, [unix-style](https://en.wikipedia.org/wiki/Glob_(programming)) pathname can used.
