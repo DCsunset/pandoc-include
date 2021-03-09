@@ -44,4 +44,10 @@ $include included/included 2.tex
 | 2   | 4     |
 
 
+## Include code
+
+```cpp
+!include 1.cpp
+```
+
 
