@@ -154,16 +154,16 @@ def action(elem, doc):
                     raw, extra_args=pandoc_options)
 
                 # Get metadata (Recursive header include)
-                new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata()
+                new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata(builtin=False)
 
             else:
                 # Read header from yaml
-                new_metadata = yaml.safe_load(raw)
-                new_metadata = OrderedDict(new_metadata)
+                # Use pf to preserve all info
+                new_metadata = pf.convert_text(f"---\n{raw}\n---", standalone=True).get_metadata(builtin=False)
 
             # Merge metadata
-            for key in new_metadata:
-                if not key in doc.get_metadata():
+            for key in new_metadata.content:
+                if not key in doc.metadata.content:
                     doc.metadata[key] = new_metadata[key]
 
             # delete temp file (the file might have been deleted in subsequent executions)
