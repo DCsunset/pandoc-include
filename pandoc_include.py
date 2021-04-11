@@ -4,7 +4,6 @@ Panflute filter to allow file includes
 
 import os
 import panflute as pf
-import yaml
 import json
 import glob
 import sys
