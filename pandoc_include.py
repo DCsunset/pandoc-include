@@ -11,44 +11,50 @@ import re
 from natsort import natsorted
 from collections import OrderedDict
 
+def eprint(text):
+    print(text, file=sys.stderr)
 
 def is_include_line(elem):
-    # Return 0 for false, 1 for include file, 2 for include header
+    # value: return 0 for false, 1 for include file, 2 for include header
+    value = 0
+    config = None
+    name = None
     firstElem = elem.content[0]
-    if len(elem.content) not in [3, 4]:
-        return 0
-    if not isinstance(firstElem, pf.Str):
-        return 0
-    if firstElem.text not in ['!include', '$include', '!include-header', '$include-header']:
-        return 0
-    if not isinstance(elem.content[-2], pf.Space):
-        return 0
-    if len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code):
-        return 0
-
-    if firstElem.text in ['!include', '$include']:
-        # include file
-        return 1
+    if (len(elem.content) not in [3, 4]) \
+        or (not isinstance(firstElem, pf.Str)) \
+        or (firstElem.text not in ['!include', '$include', '!include-header', '$include-header']) \
+        or (not isinstance(elem.content[-2], pf.Space)) \
+        or (len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code)):
+        value = 0
     else:
-        # include header
-        return 2
+        if firstElem.text in ['!include', '$include']:
+            # include file
+            value = 1
+        else:
+            # include header
+            value = 2
+
+        # filename
+        fn = elem.content[-1]
+        if isinstance(fn, pf.Quoted):
+            # Convert list to args of Para
+            name = pf.stringify(pf.Para(*fn.content), newlines=False)
+        else:
+            name = fn.text
+        
+        # config
+        # TODO
+        
+    return value, name, config
+
 
 def is_code_include(elem):
-    slices = elem.text.split(maxsplit=1)
-    if len(slices) <= 1:
-        return False
-    if slices[0] == "!include" or slices[0] == "$include":
-        return True
-    return False
-
-def get_filename(elem, includeType):
-    name = elem.content[-1]
-    if isinstance(name, pf.Quoted):
-        # Convert list to args of Para
-        fn = pf.stringify(pf.Para(*name.content), newlines=False)
-    else:
-        fn = name.text
-    return fn
+    new_elem = pf.convert_text(elem.text)[0]
+    value, name, config = is_include_line(new_elem)
+    if value == 2:
+        eprint("[Warn] Invalid !include-header in code blocks")
+        value = 0
+    return value, name, config
 
 
 # Record whether the entry has been entered
@@ -65,7 +71,7 @@ def action(elem, doc):
     global options
 
     if isinstance(elem, pf.Para):
-        includeType = is_include_line(elem)
+        includeType, name, _ = is_include_line(elem)
 
         if includeType == 0:
             return
@@ -114,11 +120,10 @@ def action(elem, doc):
         else:
             options['include-order'] = include_order
 
-        name = get_filename(elem, includeType)
         # Enable shell-style wildcards
         files = glob.glob(name)
         if len(files) == 0:
-            print('[Warn] included file not found: ' + name, file=sys.stderr)
+            eprint('[Warn] included file not found: ' + name)
 
         # order
         if include_order == 'natural':
@@ -193,7 +198,7 @@ def action(elem, doc):
         # Single file
         filename = elem.text.split(maxsplit=1)[1]
         if not os.path.isfile(filename):
-            print('[Warn] Unable to open included file: ' + filename, file=sys.stderr)
+            eprint('[Warn] Unable to open included file: ' + filename)
             return
 
         with open(filename, encoding="utf-8") as f:
