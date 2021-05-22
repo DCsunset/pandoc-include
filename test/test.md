@@ -31,7 +31,7 @@ pandoc-options:
 
 ### A simple latex table
 
-$include included/included 2.tex
+$include "included/included 2.tex"
 
 ## Include files
 
@@ -50,4 +50,6 @@ $include included/included 2.tex
 !include 1.cpp
 ```
 
+## Include with options
 
+!include`startLine=1, endLine=" "` included/included-1.md

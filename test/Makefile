@@ -1,4 +1,4 @@
-test.pdf : test.md entryTest/test.md
+test.pdf : test.md entryTest/test.md ../pandoc_include.py
 	pandoc $< -t json | python3 ../pandoc_include.py | pandoc -f json -o test.pdf
 	#pandoc $< --filter pandoc-include -o test-out.pdf
 	#pandoc test.md --filter pandoc-include -o test-out.md
