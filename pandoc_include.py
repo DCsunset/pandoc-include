@@ -7,22 +7,26 @@ import panflute as pf
 import json
 import glob
 import sys
+import re
 from natsort import natsorted
 from collections import OrderedDict
 
 
 def is_include_line(elem):
     # Return 0 for false, 1 for include file, 2 for include header
-    if len(elem.content) < 3:
+    firstElem = elem.content[0]
+    if len(elem.content) not in [3, 4]:
         return 0
-    elif not all(isinstance(x, (pf.Str, pf.Space)) for x in elem.content):
+    if not isinstance(firstElem, pf.Str):
         return 0
-    elif elem.content[0].text != '!include' and elem.content[0].text != '$include' and \
-            elem.content[0].text != '!include-header' and elem.content[0].text != '$include-header':
+    if firstElem.text not in ['!include', '$include', '!include-header', '$include-header']:
         return 0
-    elif type(elem.content[1]) != pf.Space:
+    if not isinstance(elem.content[-2], pf.Space):
         return 0
-    elif elem.content[0].text == '!include' or elem.content[0].text == '$include':
+    if len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code):
+        return 0
+
+    if firstElem.text in ['!include', '$include']:
         # include file
         return 1
     else:
@@ -38,7 +42,12 @@ def is_code_include(elem):
     return False
 
 def get_filename(elem, includeType):
-    fn = pf.stringify(elem, newlines=False).split(maxsplit=1)[1]
+    name = elem.content[-1]
+    if isinstance(name, pf.Quoted):
+        # Convert list to args of Para
+        fn = pf.stringify(pf.Para(*name.content), newlines=False)
+    else:
+        fn = name.text
     return fn
 
 
@@ -57,6 +66,7 @@ def action(elem, doc):
 
     if isinstance(elem, pf.Para):
         includeType = is_include_line(elem)
+
         if includeType == 0:
             return
 
