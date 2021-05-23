@@ -11,13 +11,39 @@ import re
 from natsort import natsorted
 from collections import OrderedDict
 
+
+CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd"}
+
 def eprint(text):
     print(text, file=sys.stderr)
+
+def parse_config(text):
+    regex = re.compile(
+        r'''
+            (?P<key>\w+)=      # Key consists of only alphanumerics
+            (?P<quote>["'`]?)   # Optional quote character.
+            (?P<value>.*?)     # Value is a non greedy match
+            (?P=quote)         # Closing quote equals the first.
+            ($|,)              # Entry ends with comma or end of string
+        ''',
+        re.VERBOSE
+    )
+
+    config = {}
+    for match in regex.finditer(text):
+        key = match.group('key')
+        if key in CONFIG_KEYS:
+            config[key] = match.group('value')
+        else:
+            eprint("[Warn] Invalid config key: " + key)
+
+    return config
+
 
 def is_include_line(elem):
     # value: return 0 for false, 1 for include file, 2 for include header
     value = 0
-    config = None
+    config = {}
     name = None
     firstElem = elem.content[0]
     if (len(elem.content) not in [3, 4]) \
@@ -43,7 +69,8 @@ def is_include_line(elem):
             name = fn.text
         
         # config
-        # TODO
+        if len(elem.content) == 4:
+            config = parse_config(elem.content[1].text)
         
     return value, name, config
 
@@ -55,6 +82,36 @@ def is_code_include(elem):
         eprint("[Warn] Invalid !include-header in code blocks")
         value = 0
     return value, name, config
+
+
+def read_file(filename, config: dict):
+    with open(filename, encoding="utf-8") as f:
+        content = f.read()
+    
+    if "startLine" in config or "endLine" in config:
+        lines = content.split("\n")
+        startLine = int(config.get("startLine", "1")) - 1
+        endLine = int(config.get("endLine", str(len(lines))))
+        content = "\n".join(lines[startLine:endLine])
+       
+    if "snippetStart" in config and "snippetEnd" in config:
+        start = 0
+        length = len(content)
+        snippets = []
+        while start < length:
+            start = content.find(config["snippetStart"], start)
+            if start == -1:
+                break
+            end = content.find(config["snippetEnd"], start)
+            if end == -1:
+                break
+            else:
+                end += len(config["snippetEnd"])
+            snippets.append(content[start:end])
+            start = end
+        content = "\n".join(snippets)
+    
+    return content
 
 
 # Record whether the entry has been entered
@@ -71,7 +128,7 @@ def action(elem, doc):
     global options
 
     if isinstance(elem, pf.Para):
-        includeType, name, _ = is_include_line(elem)
+        includeType, name, config = is_include_line(elem)
 
         if includeType == 0:
             return
@@ -141,8 +198,7 @@ def action(elem, doc):
             if not os.path.isfile(fn):
                 continue
 
-            with open(fn, encoding="utf-8") as f:
-                raw = f.read()
+            raw = read_file(fn, config)
 
             # Save current path
             cur_path = os.getcwd()
@@ -192,19 +248,20 @@ def action(elem, doc):
         return elements
     
     elif isinstance(elem, pf.CodeBlock):
-        if not is_code_include(elem):
+        includeType, name, config = is_code_include(elem)
+        if includeType == 0:
             return
         
-        # Single file
-        filename = elem.text.split(maxsplit=1)[1]
-        if not os.path.isfile(filename):
-            eprint('[Warn] Unable to open included file: ' + filename)
-            return
+        # Enable shell-style wildcards
+        files = glob.glob(name)
+        if len(files) == 0:
+            eprint('[Warn] included file not found: ' + name)
 
-        with open(filename, encoding="utf-8") as f:
-            code = f.read()
+        codes = []
+        for fn in files:
+            codes.append(read_file(fn, config))
 
-        elem.text = code
+        elem.text = "\n".join(codes)
 
 
 def main(doc=None):
