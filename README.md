@@ -12,6 +12,7 @@ This repository is to provide a simple way to install and use it.
 
 ## Features
 
+* Partial include (since v1.0.0): Allow including only parts of the file using options
 * Code include (since v0.8.5): Allow using `!include` in code blocks
 * Unix style pathname (since v0.8.2)
 * Recursive include (since v0.4.0): It depends on `include-entry` header to work
@@ -44,6 +45,81 @@ To use this filter, add to pandoc command
 ```
 pandoc input.md --filter pandoc-include -o output.pdf
 ```
+
+### Syntax
+
+Each include statement has its own line and has the syntax:
+
+```
+!include somefolder/somefile
+
+!include-header file.yaml
+```
+
+Or
+
+```
+$include somefolder/somefile
+
+$include-header file.yaml
+```
+
+Each include statement must be in its own paragraph. That is, in its own line
+and separated by blank lines.
+
+
+For code include, use `!include` statement in a code block:
+
+````markdown
+```cpp
+!include filename.cpp
+```
+````
+
+The path can be either absolute or relative to the **current** file's directory.
+Besides, [unix-style](https://en.wikipedia.org/wiki/Glob_(programming)) pathname can used.
+(If the include statement is used in an included file,
+then the path is absolute or relative to the included file itself.)
+
+If there are special characters in the filename, use quotes:
+
+```
+!include "filename with space"
+!include 'filename"with"quotes'
+```
+
+The second syntax may lead to wrong highlighting when using a markdown editor.
+If it happens, use the first syntax.
+Also make sure that there are no circular includes.
+
+
+The `!include` command also supports options:
+
+```
+!include`<key1>=<value1>, <key2>=<value2>` some_file
+```
+
+For example, to specify line ranges in options:
+
+```
+!include`startLine=1, endLine=10` some_file
+```
+
+Or to include snippets with enclosed delimiters:
+
+```
+!include`snippetStart="<!-- Start -->", snippetEnd="<!-- End -->" some_file
+```
+
+Supported options:
+
+| Key | Value | Description |
+| --- | ----- | ----------- |
+| startLine | number | Start line of include (default: 1) |
+| endLine | number | End line of include (default: number of the last line) |
+| snippetStart | string | Start delimiter of a snippet |
+| snippetEnd | string | End delimiter of a snippet |
+
 
 ### Header options
 
@@ -93,50 +169,6 @@ The default value of `pandoc-options` is:
 pandoc-options:
   - --filter=pandoc-include
 ```
-
-
-### Syntax
-
-Each include statement has its own line and has the syntax:
-
-```
-!include somefolder/somefile
-
-!include-header file.yaml
-```
-
-Or
-
-```
-$include somefolder/somefile
-
-$include-header file.yaml
-```
-
-Each include statement must be in its own paragraph. That is, in its own line
-and separated by blank lines.
-
-
-For code include, use `!include` statement in a code block:
-
-````markdown
-```cpp
-!include filename.cpp
-```
-````
-
-The included filename in code blocks should be a single file with an exact name.
-
-
-The path can be either absolute or relative to the **current** file's directory.
-Besides, [unix-style](https://en.wikipedia.org/wiki/Glob_(programming)) pathname can used.
-(If the include statement is used in an included file,
-then the path is absolute or relative to the included file itself.)
-
-
-The second syntax may lead to wrong highlighting when using a markdown editor.
-If it happens, use the first syntax.
-Also make sure that there are no circular includes.
 
 
 ## Examples
