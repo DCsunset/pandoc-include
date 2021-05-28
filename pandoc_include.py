@@ -45,15 +45,14 @@ def is_include_line(elem):
     value = 0
     config = {}
     name = None
-    firstElem = elem.content[0]
     if (len(elem.content) not in [3, 4]) \
-        or (not isinstance(firstElem, pf.Str)) \
-        or (firstElem.text not in ['!include', '$include', '!include-header', '$include-header']) \
+        or (not isinstance(elem.content[0], pf.Str)) \
+        or (elem.content[0].text not in ['!include', '$include', '!include-header', '$include-header']) \
         or (not isinstance(elem.content[-2], pf.Space)) \
         or (len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code)):
         value = 0
     else:
-        if firstElem.text in ['!include', '$include']:
+        if elem.content[0].text in ['!include', '$include']:
             # include file
             value = 1
         else:
