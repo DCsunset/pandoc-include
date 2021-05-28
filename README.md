@@ -24,7 +24,7 @@ If there's a conflict, the original header of the current file remains.
 
 ## Installation
 
-First, install python and python-pip.
+pandoc-include requires [python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/installing/).
 
 Then, use pip to install:
 
@@ -35,6 +35,19 @@ pip install --user pandoc-include
 After installation,
 make sure that the `pandoc-include` executable is put in the directory which is in **the PATH environment**.
 
+To install the current (development) version hosted on the repository, use
+
+```
+pip install --upgrade --force --no-cache git+https://github.com/DCsunset/pandoc-include
+```
+
+You can use
+
+```
+pip show pandoc-include
+```
+
+to check the version currently installed.
 
 ## Usage
 
@@ -108,8 +121,12 @@ For example, to specify line ranges in options:
 Or to include snippets with enclosed delimiters:
 
 ```
-!include`snippetStart="<!-- Start -->", snippetEnd="<!-- End -->" some_file
+!include`snippetStart="<!-- Start -->", snippetEnd="<!-- End -->"` some_file
 ```
+
+where `<!-- Start -->` and `<!-- End -->` are two strings occuring in `some_file`.
+
+If multiple occurences of `<!-- Start -->` or `<!-- End -->` are in `some_file`, then pandoc-include will use the first one and ignore the second one.
 
 Supported options:
 
