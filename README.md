@@ -136,6 +136,7 @@ Supported options:
 | endLine | number | End line of include (default: number of the last line) |
 | snippetStart | string | Start delimiter of a snippet |
 | snippetEnd | string | End delimiter of a snippet |
+| incrementSection | number | Increment (or decrement) section levels of include |
 
 
 ### Header options
