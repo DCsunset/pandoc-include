@@ -12,7 +12,7 @@ from natsort import natsorted
 from collections import OrderedDict
 
 
-CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd"}
+CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd", "incrementSection"}
 
 def eprint(text):
     print(text, file=sys.stderr)
@@ -240,6 +240,17 @@ def action(elem, doc):
                 os.remove(temp_filename)
             # Restore to current path
             os.chdir(cur_path)
+
+            # incremement headings
+            try:
+                increment = int(config.get('incrementSection', 0))
+            except ValueError:
+                increment = 0
+
+            if increment:
+                for elem in new_elems:
+                    if isinstance(elem, pf.Header):
+                        elem.level += increment
 
             if new_elems != None:
                 elements += new_elems
