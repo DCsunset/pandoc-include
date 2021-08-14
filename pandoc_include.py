@@ -89,8 +89,13 @@ def read_file(filename, config: dict):
     
     if "startLine" in config or "endLine" in config:
         lines = content.split("\n")
-        startLine = int(config.get("startLine", "1")) - 1
-        endLine = int(config.get("endLine", str(len(lines))))
+        startLine = int(config.get("startLine", 1)) - 1
+        endLine = int(config.get("endLine", len(lines)))
+        # count from the end of file
+        if startLine < 0:
+            startLine += len(lines)
+        if endLine < 0:
+            endLine += len(lines) + 1
         content = "\n".join(lines[startLine:endLine])
        
     if "snippetStart" in config and "snippetEnd" in config:
