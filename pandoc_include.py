@@ -144,7 +144,7 @@ def read_file(filename, config: dict):
                 break
             
             if includeSnippetDelimiters:
-                end += len(config.get("snippetEnd", "")
+                end += len(config.get("snippetEnd", ""))
             snippets.append(content[start:end])
             start = end
         content = "\n".join(snippets)
