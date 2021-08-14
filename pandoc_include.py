@@ -13,7 +13,14 @@ from natsort import natsorted
 from collections import OrderedDict
 
 
-CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd", "includeSnippetDelimiters" "incrementSection"}
+CONFIG_KEYS = {
+    "startLine": int,
+    "endLine": int,
+    "snippetStart": str,
+    "snippetEnd": str,
+    "includeSnippetDelimiters": bool,
+    "incrementSection": int
+}
 
 def eprint(text):
     print(text, file=sys.stderr)
@@ -34,11 +41,15 @@ def parse_config(text):
     for match in regex.finditer(text):
         key = match.group('key')
         if key in CONFIG_KEYS:
+            raw_value = match.group('value')
             try:
-                value = match.group('value')
-                config[key] = ast.literal_eval(value)
+                value = ast.literal_eval(raw_value)
             except:
-                raise ValueError(f"Invalid config: {key}={value}")
+                raise ValueError(f"Invalid config: {key}={raw_value}")
+            if not isinstance(value, CONFIG_KEYS[key]):
+                raise ValueError(f"Invalid value type: {key}={raw_value}")
+            config[key] = value
+
         else:
             eprint("[Warn] Invalid config key: " + key)
 
