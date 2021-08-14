@@ -8,11 +8,12 @@ import json
 import glob
 import sys
 import re
+import ast
 from natsort import natsorted
 from collections import OrderedDict
 
 
-CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd", "incrementSection"}
+CONFIG_KEYS = {"startLine", "endLine", "snippetStart", "snippetEnd", "includeSnippetDelimiters" "incrementSection"}
 
 def eprint(text):
     print(text, file=sys.stderr)
@@ -33,7 +34,11 @@ def parse_config(text):
     for match in regex.finditer(text):
         key = match.group('key')
         if key in CONFIG_KEYS:
-            config[key] = match.group('value')
+            try:
+                value = match.group('value')
+                config[key] = ast.literal_eval(value)
+            except:
+                raise ValueError(f"Invalid config: {key}={value}")
         else:
             eprint("[Warn] Invalid config key: " + key)
 
@@ -89,8 +94,8 @@ def read_file(filename, config: dict):
     
     if "startLine" in config or "endLine" in config:
         lines = content.split("\n")
-        startLine = int(config.get("startLine", 1)) - 1
-        endLine = int(config.get("endLine", len(lines)))
+        startLine = config.get("startLine", 1) - 1
+        endLine = config.get("endLine", len(lines))
         # count from the end of file
         if startLine < 0:
             startLine += len(lines)
@@ -104,10 +109,12 @@ def read_file(filename, config: dict):
         snippets = []
         while start < length:
             start = content.find(config["snippetStart"], start)
+            start += len(config["snippetStart"])
             if start == -1:
                 break
             end = content.find(config["snippetEnd"], start)
             if end == -1:
+                snippets.append(content[start:])
                 break
             else:
                 end += len(config["snippetEnd"])
@@ -247,10 +254,7 @@ def action(elem, doc):
             os.chdir(cur_path)
 
             # incremement headings
-            try:
-                increment = int(config.get('incrementSection', 0))
-            except ValueError:
-                increment = 0
+            increment = config.get('incrementSection', 0)
 
             if increment:
                 for elem in new_elems:
