@@ -126,17 +126,21 @@ Or to include snippets with enclosed delimiters:
 
 where `<!-- Start -->` and `<!-- End -->` are two strings occuring in `some_file`.
 
-If multiple occurences of `<!-- Start -->` or `<!-- End -->` are in `some_file`, then pandoc-include will use the first one and ignore the second one.
+If multiple occurences of `<!-- Start -->` or `<!-- End -->` are in `some_file`, then pandoc-include will include all the blocks between the delimiters.
+If `snippetEnd` or `snippetStart` is not found or specified, it will include till the end or from the start.
 
 Supported options:
 
 | Key | Value | Description |
 | --- | ----- | ----------- |
-| startLine | number | Start line of include (default: 1) |
-| endLine | number | End line of include (default: number of the last line) |
-| snippetStart | string | Start delimiter of a snippet |
-| snippetEnd | string | End delimiter of a snippet |
-| incrementSection | number | Increment (or decrement) section levels of include |
+| startLine | `int` | Start line of include (default: 1) |
+| endLine | `int` | End line of include (default: number of the last line) |
+| snippetStart | `str` | Start delimiter of a snippet |
+| snippetEnd | `str` | End delimiter of a snippet |
+| includeSnippetDelimiters | `bool` | Whether to include the delimiters (default: `False`) |
+| incrementSection | `int` | Increment (or decrement) section levels of include |
+
+**Note**: the values above are parsed as Python literals. So `str` should bee quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
 
 
 ### Header options
