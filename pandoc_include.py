@@ -41,7 +41,8 @@ def parse_config(text):
     for match in regex.finditer(text):
         key = match.group('key')
         if key in CONFIG_KEYS:
-            raw_value = match.group('value')
+            # Include the original quotes
+            raw_value = f"{match.group('quote')}{match.group('value')}{match.group('quote')}"
             try:
                 value = ast.literal_eval(raw_value)
             except:
@@ -114,21 +115,36 @@ def read_file(filename, config: dict):
             endLine += len(lines) + 1
         content = "\n".join(lines[startLine:endLine])
        
-    if "snippetStart" in config and "snippetEnd" in config:
+    if "snippetStart" in config or "snippetEnd" in config:
         start = 0
         length = len(content)
         snippets = []
+        includeSnippetDelimiters = config.get("includeSnippetDelimiters", False)
+
         while start < length:
-            start = content.find(config["snippetStart"], start)
-            start += len(config["snippetStart"])
+            if "snippetStart" in config:
+                start = content.find(config["snippetStart"], start)
+            else:
+                # Till the first snippetEnd
+                if start != 0:
+                    break
+
             if start == -1:
                 break
-            end = content.find(config["snippetEnd"], start)
+            if not includeSnippetDelimiters:
+                start += len(config.get("snippetStart", ""))
+
+            if "snippetEnd" in config:
+                end = content.find(config["snippetEnd"], start)
+            else:
+                end = -1
+            # no snippetEnd means the end of file
             if end == -1:
                 snippets.append(content[start:])
                 break
-            else:
-                end += len(config["snippetEnd"])
+            
+            if includeSnippetDelimiters:
+                end += len(config.get("snippetEnd", "")
             snippets.append(content[start:end])
             start = end
         content = "\n".join(snippets)
