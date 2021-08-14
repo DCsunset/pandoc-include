@@ -123,14 +123,13 @@ def read_file(filename, config: dict):
 
         while start < length:
             if "snippetStart" in config:
-                start = content.find(config["snippetStart"], start)
+                pos = content.find(config["snippetStart"], start)
             else:
-                # Till the first snippetEnd
-                if start != 0:
-                    break
+                pos = -1
+            # If not found, use last position
+            if pos != -1:
+                start = pos
 
-            if start == -1:
-                break
             if not includeSnippetDelimiters:
                 start += len(config.get("snippetStart", ""))
 
