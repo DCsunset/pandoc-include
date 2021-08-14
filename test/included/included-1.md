@@ -4,8 +4,10 @@
 print('Hello World')
 ```
 
-<!-- Start -->
+|Start|
 
 !include ./included-r1.md
 
-<!-- End -->
+|End|
+
+Lines after end.

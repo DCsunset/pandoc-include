@@ -52,6 +52,20 @@ $include "included/included 2.tex"
 
 ## Include with options
 
-!include`snippetStart="<!-- Start -->", snippetEnd="<!-- End -->"` included/included-1.md
+### Delimiters
+
+
+!include`snippetStart="|Start|", snippetEnd="|End|"` included/included-1.md
+
+```cpp
+!include`snippetStart="// Start", snippetEnd="// End"` 1.cpp
+```
+
+```cpp
+!include`snippetStart="// Start"` 1.cpp
+```
+
+
+### Line Number
 
 !include`startLine=1, endLine=5` included/included-1.md
