@@ -19,7 +19,8 @@ CONFIG_KEYS = {
     "snippetStart": str,
     "snippetEnd": str,
     "includeSnippetDelimiters": bool,
-    "incrementSection": int
+    "incrementSection": int,
+    "dedent": int
 }
 
 def eprint(text):
@@ -101,7 +102,7 @@ def is_code_include(elem):
 
 
 # Skip whitespaces until newline
-def skipWhiteSpace(content):
+def skipWhitespaces(content):
     whiteSpaceReg = re.compile(r"[^\s]|\n")
     m = whiteSpaceReg.search(content)
     if m == None:
@@ -110,6 +111,21 @@ def skipWhiteSpace(content):
     if content[pos] == "\n":
         pos += 1
     return pos
+
+def removeLeadingWhitespaces(s, num):
+    regex = re.compile(r"[^\s]")
+    m = regex.search(s)
+    if m == None:
+        return
+    pos = m.span()[0]
+    if num < 0:
+        return s[pos:]
+    else:
+        return s[min(pos, num):]
+
+def dedent(content: str, num):
+    lines = content.split("\n")
+    return list(map(lambda s: removeLeadingWhitespaces(s, num), lines))
 
 
 def read_file(filename, config: dict):
@@ -125,7 +141,8 @@ def read_file(filename, config: dict):
             startLine += len(lines)
         if endLine < 0:
             endLine += len(lines) + 1
-        content = "\n".join(lines[startLine:endLine])
+        result = lines[startLine:endLine]
+        content = "\n".join(result)
        
     if "snippetStart" in config or "snippetEnd" in config:
         start = 0
@@ -148,7 +165,7 @@ def read_file(filename, config: dict):
             if not includeSnippetDelimiters:
                 start += len(config.get("snippetStart", ""))
                 # Skip whitespaces until newline
-                pos = skipWhiteSpace(content[start:])
+                pos = skipWhitespaces(content[start:])
                 if pos == None:
                     break
                 start += pos
@@ -167,7 +184,7 @@ def read_file(filename, config: dict):
                 subEnd = end
             else:
                 # Skip whitespaces until newline
-                pos = skipWhiteSpace(content[start:end][::-1])
+                pos = skipWhitespaces(content[start:end][::-1])
                 if pos == None:
                     subEnd = end
                 else:
@@ -177,6 +194,9 @@ def read_file(filename, config: dict):
             start = end
         content = "\n".join(snippets)
     
+    if "dedent" in config:
+        content = "\n".join(dedent(content, config["dedent"]))
+
     return content
 
 

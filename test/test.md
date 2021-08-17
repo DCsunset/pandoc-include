@@ -65,6 +65,11 @@ $include "included/included 2.tex"
 !include`snippetStart="// Start"` 1.cpp
 ```
 
+### Dedent
+
+```cpp
+!include`snippetStart="// Start", snippetEnd="// End", dedent=-1` 1.cpp
+```
 
 ### Line Number
 
