@@ -139,8 +139,9 @@ Supported options:
 | snippetEnd | `str` | End delimiter of a snippet |
 | includeSnippetDelimiters | `bool` | Whether to include the delimiters (default: `False`) |
 | incrementSection | `int` | Increment (or decrement) section levels of include |
+| dedent | `int` | Remove n leading whitespaces of each line where possible (`-1` means remove all) |
 
-**Note**: the values above are parsed as Python literals. So `str` should bee quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
+**Note**: the values above are parsed as Python literals. So `str` should be quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
 
 
 ### Header options
