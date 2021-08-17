@@ -100,6 +100,18 @@ def is_code_include(elem):
     return value, name, config
 
 
+# Skip whitespaces until newline
+def skipWhiteSpace(content):
+    whiteSpaceReg = re.compile(r"[^\s]|\n")
+    m = whiteSpaceReg.search(content)
+    if m == None:
+        return None
+    pos = m.span()[0]
+    if content[pos] == "\n":
+        pos += 1
+    return pos
+
+
 def read_file(filename, config: dict):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
@@ -126,12 +138,20 @@ def read_file(filename, config: dict):
                 pos = content.find(config["snippetStart"], start)
             else:
                 pos = -1
-            # If not found, use last position
             if pos != -1:
                 start = pos
+            else:
+                # If not found for the first time, start from the beginning
+                if start != 0:
+                    break
 
             if not includeSnippetDelimiters:
                 start += len(config.get("snippetStart", ""))
+                # Skip whitespaces until newline
+                pos = skipWhiteSpace(content[start:])
+                if pos == None:
+                    break
+                start += pos
 
             if "snippetEnd" in config:
                 end = content.find(config["snippetEnd"], start)
@@ -141,10 +161,19 @@ def read_file(filename, config: dict):
             if end == -1:
                 snippets.append(content[start:])
                 break
-            
+
             if includeSnippetDelimiters:
                 end += len(config.get("snippetEnd", ""))
-            snippets.append(content[start:end])
+                subEnd = end
+            else:
+                # Skip whitespaces until newline
+                pos = skipWhiteSpace(content[start:end][::-1])
+                if pos == None:
+                    subEnd = end
+                else:
+                    subEnd = end - pos
+
+            snippets.append(content[start:subEnd])
             start = end
         content = "\n".join(snippets)
     
