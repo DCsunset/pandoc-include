@@ -23,10 +23,10 @@ setup(
 
     install_requires=['panflute>=2.0.5', 'natsort>=7'],
     # Add to lib so that it can be included
-    packages=["pandoc-include"],
+    packages=["pandoc_include"],
     entry_points={
         'console_scripts': [
-            'pandoc-include = pandoc-include.pandoc_include:main'
+            'pandoc-include = pandoc_include.main:main'
         ]
     },
 
