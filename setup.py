@@ -26,7 +26,7 @@ setup(
     packages=["pandoc-include"],
     entry_points={
         'console_scripts': [
-            'pandoc-include = pandoc_include:main'
+            'pandoc-include = pandoc-include.pandoc_include:main'
         ]
     },
 
