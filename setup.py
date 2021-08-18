@@ -23,7 +23,7 @@ setup(
 
     install_requires=['panflute>=2.0.5', 'natsort>=7'],
     # Add to lib so that it can be included
-    py_modules=['pandoc_include'],
+    py_modules=['pandoc_include', 'format_heuristics'],
     package_dir={'':'src'},
     entry_points={
         'console_scripts': [
