@@ -140,6 +140,7 @@ Supported options:
 | includeSnippetDelimiters | `bool` | Whether to include the delimiters (default: `False`) |
 | incrementSection | `int` | Increment (or decrement) section levels of include |
 | dedent | `int` | Remove n leading whitespaces of each line where possible (`-1` means remove all) |
+| format | `str` | The input format of the included file (see `pandoc --list-input-formats`). It will be automatically deduced from the path if not set |
 
 **Note**: the values above are parsed as Python literals. So `str` should be quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
 

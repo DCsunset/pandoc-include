@@ -11,6 +11,7 @@ import re
 import ast
 from natsort import natsorted
 from collections import OrderedDict
+from format_heuristics import formatFromPath
 
 
 CONFIG_KEYS = {
@@ -20,7 +21,8 @@ CONFIG_KEYS = {
     "snippetEnd": str,
     "includeSnippetDelimiters": bool,
     "incrementSection": int,
-    "dedent": int
+    "dedent": int,
+    "format": str
 }
 
 def eprint(text):
@@ -306,11 +308,28 @@ def action(elem, doc):
             new_elems = None
             new_metadata = None
             if includeType == 1:
+                # Set file format
+                if "format" in config:
+                    fmt = config["format"]
+                else:
+                    fmt = formatFromPath(fn)
+                # default use markdown
+                if fmt is None:
+                    fmt = "markdown"
+
                 new_elems = pf.convert_text(
-                    raw, extra_args=pandoc_options)
+                    raw,
+                    input_format=fmt,
+                    extra_args=pandoc_options
+                )
 
                 # Get metadata (Recursive header include)
-                new_metadata = pf.convert_text(raw, standalone=True, extra_args=pandoc_options).get_metadata(builtin=False)
+                new_metadata = pf.convert_text(
+                    raw,
+                    input_format=fmt,
+                    standalone=True,
+                    extra_args=pandoc_options
+                ).get_metadata(builtin=False)
 
             else:
                 # Read header from yaml
