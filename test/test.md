@@ -50,6 +50,10 @@ $include "included/included 2.tex"
 !include 1.cpp
 ```
 
+## Include reST
+
+!include included/image.rst
+
 ## Include with options
 
 ### Delimiters
