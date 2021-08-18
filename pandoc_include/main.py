@@ -11,8 +11,7 @@ import re
 import ast
 from natsort import natsorted
 from collections import OrderedDict
-from format_heuristics import formatFromPath
-
+from .format_heuristics import formatFromPath
 
 CONFIG_KEYS = {
     "startLine": int,
