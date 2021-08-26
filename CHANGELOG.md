@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/DCsunset/pandoc-include/compare/v0.8.7...v1.0.0) (2021-08-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* change parsing logic
+
+### Features
+
+* add dedent ([a51f74e](https://github.com/DCsunset/pandoc-include/commit/a51f74ed707fce9a38239d2e8800ba378ec7bd47))
+* add support for different formats ([52c316a](https://github.com/DCsunset/pandoc-include/commit/52c316a2c9bddccb1eb8c7b5331d358cc0bff434))
+* add type for config key ([2a64547](https://github.com/DCsunset/pandoc-include/commit/2a64547c07d8291e71e91736c04d4aa8c611e8b8))
+* allow negative line numbers ([a6792e7](https://github.com/DCsunset/pandoc-include/commit/a6792e7ee7e9610b160426ed7b9d483d9c7eb63f))
+* change parsing logic ([53fce08](https://github.com/DCsunset/pandoc-include/commit/53fce08829444f30cd4c293b281b3621454d6fc4))
+* ignore rest of line when including ([5e09040](https://github.com/DCsunset/pandoc-include/commit/5e0904011f6e135ce20eed68d52c03cfcf51ab67))
+* improve snippet include ([82115a6](https://github.com/DCsunset/pandoc-include/commit/82115a6f227e1228e011b0bc8640552ffffb2e69))
+* move name and config parsing ([1c03dfe](https://github.com/DCsunset/pandoc-include/commit/1c03dfeee7aa101fda1e5f9b5cb9cc909146c78f))
+* support options for partial include ([3e3d0fc](https://github.com/DCsunset/pandoc-include/commit/3e3d0fc95d84457ce5c60bfb0f984b4af40082af))
+
+
+### Bug Fixes
+
+* add missing modules ([ba0c3e5](https://github.com/DCsunset/pandoc-include/commit/ba0c3e58f67d6f5df4871ab6c9fb2830d5b35a75))
+* add package import in __init__ ([7fa9641](https://github.com/DCsunset/pandoc-include/commit/7fa96419f031d8a7a360c36f8c42b7b923305489))
+* fix a bug ([dcced91](https://github.com/DCsunset/pandoc-include/commit/dcced913d4bcf2dfb857c361abe6dadf53d5ca18))
+* fix a typo ([e2ee9ab](https://github.com/DCsunset/pandoc-include/commit/e2ee9abf900008a012058df5328a2d61d5bf740c))
+* fix invalid indexing ([24383d8](https://github.com/DCsunset/pandoc-include/commit/24383d8b3c4a10dbaa395cf2b777f59bbc90c3c9))
+* fix module import ([a01bdf2](https://github.com/DCsunset/pandoc-include/commit/a01bdf22e5ed0be7d636c3cd1dcda6ebab120b11))
+* fix setup.py ([bc6a0fe](https://github.com/DCsunset/pandoc-include/commit/bc6a0fe0b44f3b001e0b03ebf1df5cc59149d89b))
+* rename dir name ([5c41e2c](https://github.com/DCsunset/pandoc-include/commit/5c41e2c6c3ae784cb067dae55c5db39ecafd909c))
+
 ### [0.8.7](https://github.com/DCsunset/pandoc-include/compare/v0.8.6...v0.8.7) (2021-04-11)
 
 
