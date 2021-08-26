@@ -64,7 +64,9 @@ def is_include_line(elem):
     value = 0
     config = {}
     name = None
-    if (len(elem.content) not in [3, 4]) \
+    if not hasattr(elem, "_content"):
+        value = 0
+    elif (len(elem.content) not in [3, 4]) \
         or (not isinstance(elem.content[0], pf.Str)) \
         or (elem.content[0].text not in ['!include', '$include', '!include-header', '$include-header']) \
         or (not isinstance(elem.content[-2], pf.Space)) \
