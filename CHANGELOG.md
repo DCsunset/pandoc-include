@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/DCsunset/pandoc-include/compare/v1.0.0...v1.0.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* fix attribute error ([1436483](https://github.com/DCsunset/pandoc-include/commit/143648375e1714692346b8c4230f4dbe59720d12))
+
 ## [1.0.0](https://github.com/DCsunset/pandoc-include/compare/v0.8.7...v1.0.0) (2021-08-26)
 
 
