@@ -52,7 +52,10 @@ def is_include_line(elem):
 
 
 def is_code_include(elem):
-    new_elem = pf.convert_text(elem.text)[0]
+    try:
+        new_elem = pf.convert_text(elem.text)[0]
+    except:
+        return 0, None, None
     value, name, config = is_include_line(new_elem)
     if value == 2:
         eprint("[Warn] Invalid !include-header in code blocks")
