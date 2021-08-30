@@ -6,58 +6,13 @@ import os
 import panflute as pf
 import json
 import glob
-import sys
 import re
-import ast
 from natsort import natsorted
 from urllib.parse import urlparse
 from collections import OrderedDict
 from .format_heuristics import formatFromPath
-
-CONFIG_KEYS = {
-    "startLine": int,
-    "endLine": int,
-    "snippetStart": str,
-    "snippetEnd": str,
-    "includeSnippetDelimiters": bool,
-    "incrementSection": int,
-    "dedent": int,
-    "format": str
-}
-
-def eprint(text):
-    print(text, file=sys.stderr)
-
-def parse_config(text):
-    regex = re.compile(
-        r'''
-            (?P<key>\w+)=      # Key consists of only alphanumerics
-            (?P<quote>["'`]?)   # Optional quote character.
-            (?P<value>.*?)     # Value is a non greedy match
-            (?P=quote)         # Closing quote equals the first.
-            ($|,)              # Entry ends with comma or end of string
-        ''',
-        re.VERBOSE
-    )
-
-    config = {}
-    for match in regex.finditer(text):
-        key = match.group('key')
-        if key in CONFIG_KEYS:
-            # Include the original quotes
-            raw_value = f"{match.group('quote')}{match.group('value')}{match.group('quote')}"
-            try:
-                value = ast.literal_eval(raw_value)
-            except:
-                raise ValueError(f"Invalid config: {key}={raw_value}")
-            if not isinstance(value, CONFIG_KEYS[key]):
-                raise ValueError(f"Invalid value type: {key}={raw_value}")
-            config[key] = value
-
-        else:
-            eprint("[Warn] Invalid config key: " + key)
-
-    return config
+from .config import parseConfig, parseOptions, TEMP_FILE
+from .utils import eprint
 
 
 def is_include_line(elem):
@@ -91,7 +46,7 @@ def is_include_line(elem):
         
         # config
         if len(elem.content) == 4:
-            config = parse_config(elem.content[1].text)
+            config = parseConfig(elem.content[1].text)
         
     return value, name, config
 
@@ -209,43 +164,6 @@ entryEnter = False
 # Inherited options
 options = None
 
-# The temp filename should be fixed
-# in order to be found by subprocesses
-temp_filename = '.temp.pandoc-include'
-
-def parse_options(doc):
-    if os.path.isfile(temp_filename):
-        with open(temp_filename, 'r') as f:
-            options = json.load(f)
-    else:
-        # entry file (default values)
-        options = {
-            "current-path": ".",
-            "include-order": "natural",
-            "rewrite-path": True,
-            "pandoc-options": ["--filter=pandoc-include"]
-        }
-
-    # pandoc options
-    pandoc_options = doc.get_metadata('pandoc-options')
-    if pandoc_options is not None:
-        # Replace em-dash to double dashes in smart typography
-        for i in range(len(pandoc_options)):
-            pandoc_options[i] = pandoc_options[i].replace('\u2013', '--')
-        options['pandoc-options'] = pandoc_options
-
-    # order of included files (natural, alphabetical, shell_default)
-    include_order = doc.get_metadata("include-order")
-    if include_order is not None:
-        options["include-order"] = include_order
-    
-    # rewrite path
-    rewrite_path = doc.get_metadata("rewrite-path")
-    if rewrite_path is not None:
-        options["rewrite-path"] = rewrite_path
-    
-    return options
-
 
 def action(elem, doc):
     global entryEnter
@@ -253,7 +171,7 @@ def action(elem, doc):
 
     # Try to read inherited options from temp file
     if options is None:
-        options = parse_options(doc)
+        options = parseOptions(doc)
 
     # The entry file's directory
     entry = doc.get_metadata('include-entry')
@@ -304,7 +222,7 @@ def action(elem, doc):
             os.chdir(target)
 
             # pass options by temp files
-            with open(temp_filename, 'w+') as f:
+            with open(TEMP_FILE, 'w+') as f:
                 json.dump(options, f)
 
             # Add recursive include support
@@ -348,8 +266,8 @@ def action(elem, doc):
                     doc.metadata[key] = new_metadata[key]
 
             # delete temp file (the file might have been deleted in subsequent executions)
-            if os.path.exists(temp_filename):
-                os.remove(temp_filename)
+            if os.path.exists(TEMP_FILE):
+                os.remove(TEMP_FILE)
             # Restore to current path
             os.chdir(cur_path)
             options["current-path"] = currentPath 
