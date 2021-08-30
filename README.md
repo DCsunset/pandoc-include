@@ -151,11 +151,14 @@ Supported options:
 ---
 include-entry: '<path>'
 include-order: 'natural'
+rewrite-path: true
 pandoc-options:
   - --filter=pandoc-include
   - <other options>
 ---
 ```
+
+#### `include-entry`
 
 The `include-entry` option is to make recursive includes work.
 Its value is a path relative to current working directory or absolute
@@ -178,10 +181,32 @@ pandoc dir/test.md --filter pandoc-include -o test.pdf
 The header should now be set to: `include-entry: 'dir'`.
 
 
+#### `include-order`
+
 The `include-order` options is to define the order of included files if the unix-style pathname matches multiple files.
 The default value is `natural`, which means using the [natural order](https://en.wikipedia.org/wiki/Natural_sort_order).
 Other possible values are `alphabetical` and `default`.
 The `default` means to keep the order returned by the Python `glob` module.
+
+#### `rewrite-path`
+
+The `rewrite-path` option is a boolean value to configure whether the relative paths of images should be rewritten to paths relative to the root file.
+The default value is `true`.
+
+For example, consider the following directory structure:
+
+```
+main.md
+content/
+  chapter01.md
+  image.png
+```
+
+Suppose `chapter01.md` uses the image `image.png`.
+It should use `![Image](image.png)` if `rewrite-path` is `true`,
+or `![Image](content/image.png)` if `rewrite-path` is `false`.
+
+#### `pandoc-options`
 
 The `pandoc-options` option is **a list** to specify the pandoc options when recursively processing included files.
 By default, the included file will **inherit** the `pandoc-options` from its parent file, **unless** specified in its own file.
