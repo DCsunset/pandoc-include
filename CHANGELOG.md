@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/DCsunset/pandoc-include/compare/v1.0.1...v1.1.0) (2021-08-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* rewrite relative paths
+
+### Features
+
+* rewrite relative paths ([a36ca20](https://github.com/DCsunset/pandoc-include/commit/a36ca20ebc970c2484bbc9e6887187406495b512))
+
+
+### Bug Fixes
+
+* fix code include check ([2af041a](https://github.com/DCsunset/pandoc-include/commit/2af041a4ebd37a037b5255180a0d7caa3f952593))
+
 ### [1.0.1](https://github.com/DCsunset/pandoc-include/compare/v1.0.0...v1.0.1) (2021-08-27)
 
 

@@ -1,7 +1,7 @@
 from setuptools import setup
 from os import path
 
-version = '1.0.1'
+version = '1.1.0'
 
 repo_base_dir = path.abspath(path.dirname(__file__))
 
