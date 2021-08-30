@@ -10,6 +10,7 @@ import sys
 import re
 import ast
 from natsort import natsorted
+from urllib.parse import urlparse
 from collections import OrderedDict
 from .format_heuristics import formatFromPath
 
@@ -212,9 +213,53 @@ options = None
 # in order to be found by subprocesses
 temp_filename = '.temp.pandoc-include'
 
+def parse_options(doc):
+    if os.path.isfile(temp_filename):
+        with open(temp_filename, 'r') as f:
+            options = json.load(f)
+    else:
+        # entry file (default values)
+        options = {
+            "current-path": ".",
+            "include-order": "natural",
+            "rewrite-path": True,
+            "pandoc-options": ["--filter=pandoc-include"]
+        }
+
+    # pandoc options
+    pandoc_options = doc.get_metadata('pandoc-options')
+    if pandoc_options is not None:
+        # Replace em-dash to double dashes in smart typography
+        for i in range(len(pandoc_options)):
+            pandoc_options[i] = pandoc_options[i].replace('\u2013', '--')
+        options['pandoc-options'] = pandoc_options
+
+    # order of included files (natural, alphabetical, shell_default)
+    include_order = doc.get_metadata("include-order")
+    if include_order is not None:
+        options["include-order"] = include_order
+    
+    # rewrite path
+    rewrite_path = doc.get_metadata("rewrite-path")
+    if rewrite_path is not None:
+        options["rewrite-path"] = rewrite_path
+    
+    return options
+
+
 def action(elem, doc):
     global entryEnter
     global options
+
+    # Try to read inherited options from temp file
+    if options is None:
+        options = parse_options(doc)
+
+    # The entry file's directory
+    entry = doc.get_metadata('include-entry')
+    if not entryEnter and entry:
+        os.chdir(entry)
+        entryEnter = True
 
     if isinstance(elem, pf.Para):
         includeType, name, config = is_include_line(elem)
@@ -222,56 +267,13 @@ def action(elem, doc):
         if includeType == 0:
             return
 
-        passOptions = False
-        # Try to read inherited options from temp file
-        if options is None:
-            if os.path.isfile(temp_filename):
-                # pass options when the parent has passed it
-                passOptions = True
-                with open(temp_filename, 'r') as f:
-                    options = json.load(f)
-            else:
-                options = {}
-
-        # pandoc options
-        pandoc_options = doc.get_metadata('pandoc-options')
-        if not pandoc_options:
-            if 'pandoc-options' in options:
-                pandoc_options = options['pandoc-options']
-            else:
-                # default options
-                pandoc_options = ['--filter=pandoc-include']
-        else:
-            # pass options when they are modified
-            passOptions = True
-            # Replace em-dash to double dashes in smart typography
-            for i in range(len(pandoc_options)):
-                pandoc_options[i] = pandoc_options[i].replace('\u2013', '--')
-
-            options['pandoc-options'] = pandoc_options
-
-        # The entry file's directory
-        entry = doc.get_metadata('include-entry')
-        if not entryEnter and entry:
-            os.chdir(entry)
-            entryEnter = True
-        
-        # order of included files (natural, alphabetical, shell_default)
-        include_order = doc.get_metadata('include-order')
-        if not include_order:
-            if 'include-order' in options:
-                include_order = options['pandoc-options']
-            else:
-                include_order = 'natural'
-        else:
-            options['include-order'] = include_order
-
         # Enable shell-style wildcards
         files = glob.glob(name)
         if len(files) == 0:
             eprint('[Warn] included file not found: ' + name)
 
         # order
+        include_order = options['include-order']
         if include_order == 'natural':
             files = natsorted(files)
         elif include_order == 'alphabetical':
@@ -280,7 +282,6 @@ def action(elem, doc):
             pass
         else:
             raise ValueError('Invalid file order: ' + include_order)
-
 
         elements = []
         for fn in files:
@@ -298,12 +299,13 @@ def action(elem, doc):
             if not target:
                 target = '.'
 
+            currentPath = options["current-path"]
+            options["current-path"] = os.path.normpath(os.path.join(currentPath, target))
             os.chdir(target)
 
-            if passOptions:
-                # pass options by temp files
-                with open(temp_filename, 'w+') as f:
-                    json.dump(options, f)
+            # pass options by temp files
+            with open(temp_filename, 'w+') as f:
+                json.dump(options, f)
 
             # Add recursive include support
             new_elems = None
@@ -317,6 +319,9 @@ def action(elem, doc):
                 # default use markdown
                 if fmt is None:
                     fmt = "markdown"
+
+                # copy since pf will modify this argument
+                pandoc_options = list(options["pandoc-options"])
 
                 new_elems = pf.convert_text(
                     raw,
@@ -347,6 +352,7 @@ def action(elem, doc):
                 os.remove(temp_filename)
             # Restore to current path
             os.chdir(cur_path)
+            options["current-path"] = currentPath 
 
             # incremement headings
             increment = config.get('incrementSection', 0)
@@ -376,6 +382,24 @@ def action(elem, doc):
             codes.append(read_file(fn, config))
 
         elem.text = "\n".join(codes)
+    
+    elif isinstance(elem, pf.Image):
+        rewritePath = options.get("rewrite-path", True)
+        if not rewritePath:
+            return
+
+        url = elem.url
+        # try to parse the url first
+        result = urlparse(url)
+        # url
+        if result.scheme != "":
+            return
+        # absolute path
+        if os.path.isabs(url):
+            return
+
+        # rewrite relative path
+        elem.url = os.path.join(options["current-path"], url)
 
 
 def main(doc=None):

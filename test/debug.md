@@ -1,3 +1,2 @@
-```
-	<script>
-```
+!include included/image.rst
+

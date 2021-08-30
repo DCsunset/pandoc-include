@@ -1,1 +1,1 @@
-.. figure:: included/150.png
+.. figure:: ./150.png
