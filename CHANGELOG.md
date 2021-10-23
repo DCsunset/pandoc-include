@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/DCsunset/pandoc-include/compare/v1.1.0...v1.2.0) (2021-10-23)
+
+
+### Features
+
+* allow include as raw blocks ([fcc6193](https://github.com/DCsunset/pandoc-include/commit/fcc61937dc091022921cd1f9d3fb21995d397935))
+
 ## [1.1.0](https://github.com/DCsunset/pandoc-include/compare/v1.0.1...v1.1.0) (2021-08-30)
 
 
