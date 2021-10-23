@@ -12,14 +12,16 @@ This repository is to provide a simple way to install and use it.
 
 ## Features
 
-* Partial include (since v1.0.0): Allow including only parts of the file using options
-* Code include (since v0.8.5): Allow using `!include` in code blocks
-* Unix style pathname (since v0.8.2)
-* Recursive include (since v0.4.0): It depends on `include-entry` header to work
-* Yaml header Merging (since v0.5.0):
+* Include as raw blocks
+* Indent and dedent included contents
+* Partial include: Allow including only parts of the file using options
+* Code include: Allow using `!include` in code blocks
+* Unix style pathname
+* Recursive include: It depends on `include-entry` header to work
+* Yaml header Merging:
 When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
-* Header include (since v0.6.0): Use `!include-header file.yaml` to include Yaml header from file.
+* Header include: Use `!include-header file.yaml` to include Yaml header from file.
 
 
 ## Installation
@@ -141,6 +143,7 @@ Supported options:
 | incrementSection | `int` | Increment (or decrement) section levels of include |
 | dedent | `int` | Remove n leading whitespaces of each line where possible (`-1` means remove all) |
 | format | `str` | The input format of the included file (see `pandoc --list-input-formats`). It will be automatically deduced from the path if not set |
+| raw | `str` | Include as raw block. The arg is the format (`latex`, `html`...) |
 
 **Note**: the values above are parsed as Python literals. So `str` should be quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
 
@@ -241,11 +244,9 @@ toc: true
 
 !include chapters/chap03.md
 
-!include data/table.tex
+!include`raw="latex"` data/table.tex
 
 ```
-
-Recursive include is supported from v0.4.0.
 
 ### Header include
 
