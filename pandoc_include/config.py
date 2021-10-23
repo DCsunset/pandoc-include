@@ -12,7 +12,8 @@ CONFIG_KEYS = {
     "includeSnippetDelimiters": bool,
     "incrementSection": int,
     "dedent": int,
-    "format": str
+    "format": str,
+    "raw": str
 }
 
 # The temp filename should be fixed

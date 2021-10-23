@@ -244,19 +244,24 @@ def action(elem, doc):
                 # copy since pf will modify this argument
                 pandoc_options = list(options["pandoc-options"])
 
-                new_elems = pf.convert_text(
-                    raw,
-                    input_format=fmt,
-                    extra_args=pandoc_options
-                )
+                if "raw" in config:
+                    rawFmt = config.get("raw")
+                    # raw block
+                    new_elems = [pf.RawBlock(raw, format=rawFmt)]
+                else:
+                    new_elems = pf.convert_text(
+                        raw,
+                        input_format=fmt,
+                        extra_args=pandoc_options
+                    )
 
-                # Get metadata (Recursive header include)
-                new_metadata = pf.convert_text(
-                    raw,
-                    input_format=fmt,
-                    standalone=True,
-                    extra_args=pandoc_options
-                ).get_metadata(builtin=False)
+                    # Get metadata (Recursive header include)
+                    new_metadata = pf.convert_text(
+                        raw,
+                        input_format=fmt,
+                        standalone=True,
+                        extra_args=pandoc_options
+                    ).get_metadata(builtin=False)
 
             else:
                 # Read header from yaml
@@ -264,9 +269,10 @@ def action(elem, doc):
                 new_metadata = pf.convert_text(f"---\n{raw}\n---", standalone=True).get_metadata(builtin=False)
 
             # Merge metadata
-            for key in new_metadata.content:
-                if not key in doc.metadata.content:
-                    doc.metadata[key] = new_metadata[key]
+            if new_metadata is not None:
+                for key in new_metadata.content:
+                    if not key in doc.metadata.content:
+                        doc.metadata[key] = new_metadata[key]
 
             # delete temp file (the file might have been deleted in subsequent executions)
             if os.path.exists(TEMP_FILE):
