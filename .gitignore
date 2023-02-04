@@ -1,5 +1,2 @@
-*.egg-info
-build
-dist
-.eggs
 test/*.pdf
+venv
