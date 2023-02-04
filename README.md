@@ -106,6 +106,14 @@ If there are special characters in the filename, use quotes:
 !include 'filename"with"quotes'
 ```
 
+If the filename contains special sequences in markdown, use backquotes:
+(**Note**: this also applies to include statment in code blocks)
+
+```
+!include `__filename__`
+```
+
+
 The second syntax may lead to wrong highlighting when using a markdown editor.
 If it happens, use the first syntax.
 Also make sure that there are no circular includes.
