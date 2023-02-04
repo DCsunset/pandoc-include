@@ -50,6 +50,10 @@ $include "included/included 2.tex"
 !include 1.cpp
 ```
 
+```py
+!include `__test__.py`
+```
+
 ## Include reST
 
 !include included/image.rst
