@@ -53,6 +53,9 @@ to check the version currently installed.
 
 ## Usage
 
+**Note**: you should use `pandoc` with version greater than or equal to `2.17`,
+which is the minimum version that is tested.
+
 ### Command
 
 To use this filter, add to pandoc command
