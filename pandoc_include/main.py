@@ -75,6 +75,8 @@ def skipWhitespaces(content):
     return pos
 
 def removeLeadingWhitespaces(s, num):
+    if not s.strip():
+        return s
     regex = re.compile(r"[^\s]")
     m = regex.search(s)
     if m == None:
@@ -155,9 +157,14 @@ def read_file(filename, config: dict):
             snippets.append(content[start:subEnd])
             start = end
         content = "\n".join(snippets)
-    
-    if "dedent" in config:
-        content = "\n".join(dedent(content, config["dedent"]))
+
+    try:
+        if "dedent" in config:
+            content = "\n".join(dedent(content, config["dedent"]))
+    except Exception as e:
+        import sys
+        print(f"Filename {filename} config {config}", file=sys.stderr)
+        raise e
 
     return content
 
