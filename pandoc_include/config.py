@@ -11,6 +11,7 @@ CONFIG_KEYS = {
     "endLine": int,
     "snippetStart": str,
     "snippetEnd": str,
+    "xsl": str,
     "includeSnippetDelimiters": bool,
     "incrementSection": int,
     "dedent": int,

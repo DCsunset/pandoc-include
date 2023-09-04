@@ -9,6 +9,7 @@ import re
 import itertools
 
 import panflute as pf
+import lxml.etree as xml
 
 from natsort import natsorted
 from urllib.parse import urlparse
@@ -129,6 +130,33 @@ def dedent(content: str, num):
 def read_file(filename, config: dict):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
+
+    if "xsl" in config:
+        xslParam = config.get("xsl", None)
+
+        if not xslParam:
+            raise ValueError(f"Invalid value for xsl file: '{xslParam}'")
+
+        xslFilterFile = glob.glob(xslParam, recursive=True)
+
+        if len(xslFilterFile) == 0:
+            raise ValueError(f"xsl filter file not found: '{xslParam}'")
+        elif len(xslFilterFile) > 1:
+            raise ValueError(f"Ambiguous xsl filter file: '{xslParam}'")
+        else:
+            xslFilterFile = xslFilterFile[0]
+
+        pf.debug(f"[INFO] xsl transform {filename} with {xslFilterFile}")
+
+        dom = xml.parse(filename)
+
+        xslt = xml.parse(xslFilterFile)
+        if not xslt:
+            raise IOError("Unable to read XSL file '{xslt}'")
+        transform = xml.XSLT(xslt)
+        transformedDom = transform(dom)
+
+        content = str(transformedDom)
 
     if "startLine" in config or "endLine" in config:
         lines = content.split("\n")
