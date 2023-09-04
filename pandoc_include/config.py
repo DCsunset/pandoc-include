@@ -62,6 +62,8 @@ def parseOptions(doc):
         # entry file (default values)
         options = {
             "current-path": ".",
+            "include-resources": ".",
+            "process-path": None,
             "include-order": "natural",
             "rewrite-path": True,
             "pandoc-options": ["--filter=pandoc-include"]
@@ -84,5 +86,15 @@ def parseOptions(doc):
     rewrite_path = doc.get_metadata("rewrite-path")
     if rewrite_path is not None:
         options["rewrite-path"] = rewrite_path
-    
+
+    # resource path
+    resource_path = doc.get_metadata("include-resources")
+    if resource_path is not None:
+        options["include-resources"] = resource_path
+
+    # process path
+    process_path = os.getcwd()
+    if options["process-path"] is None:
+        options["process-path"] = process_path
+
     return options
