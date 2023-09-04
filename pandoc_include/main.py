@@ -17,11 +17,14 @@ from .config import parseConfig, parseOptions, TEMP_FILE
 
 
 # Global variables
-INCLUDE_CMDS     = ['!include', '$include', '!include-header', '$include-header']
 INCLUDE_INVALID  = 0
 INCLUDE_FILE     = 1
 INCLUDE_HEADER   = 2
 
+# Regex patterns
+RE_IS_INCLUDE_HEADER  = r"(\\?(!|\$))include-header"
+RE_IS_INCLUDE_LINE    = r"^(\\?(!|\$))include(-header)?"
+RE_INCLUDE_PATTERN    = r"^(\\?(!|\$))include(-header)?(\`(?P<args>[^\`]+(, ?[^\`]+)*)\`)? ((?P<fname>[^\`\'\"]+)|([\`\'\"])(?P<fnamealt>.+)\9)$"
 
 # Record whether the entry has been entered
 entryEnter = False
@@ -29,35 +32,54 @@ entryEnter = False
 options = None
 
 
+def extract_info(rawString):
+    global entryEnter
+    global options
+
+    includeType = INCLUDE_INVALID
+    config = {}
+    filename = None
+
+    # wildcards '*' are escaped which needs to be undone because of path globing
+    # convert_text has a tendency to produce multiline text which can not be matched correctly
+    rawString = rawString.replace('\\*', '*').replace('\n', ' ')
+
+    if re.match(RE_IS_INCLUDE_HEADER, rawString):
+        includeType = INCLUDE_HEADER
+    else:
+        includeType = INCLUDE_FILE
+
+    matches = re.match(RE_INCLUDE_PATTERN, rawString)
+    if not matches:
+        # Pattern was not able to extract args and file glob... Hence, abort
+        raise ValueError(f"Unable to extract info from include line {rawString}")
+
+    groups = matches.groupdict()
+
+    # Get filename from Regex capture group
+    filename = groups.get('fname', None)
+    if not filename:
+        filename = groups.get('fnamealt', None)
+
+    # Get args from RegEx capture group
+    if 'args' in groups and groups['args']:
+        config = parseConfig(groups['args'])
+
+    if not filename:
+        raise ValueError(f"Unable to extract info from include line {rawString}")
+
+    return includeType, filename, config
+
 def is_include_line(elem):
+    # Revert to Markdown for regex matching
+    rawString = pf.convert_text(elem, input_format='panflute', output_format='markdown', standalone=True)
+
     includeType = INCLUDE_INVALID
     config = {}
     name = None
-    if not hasattr(elem, "_content"):
-        includeType = INCLUDE_INVALID
-    elif (len(elem.content) not in [3, 4]) \
-        or (not isinstance(elem.content[0], pf.Str)) \
-        or (elem.content[0].text not in INCLUDE_CMDS) \
-        or (not isinstance(elem.content[-2], pf.Space)) \
-        or (len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code)):
-        includeType = INCLUDE_INVALID
-    else:
-        if elem.content[0].text in ['!include', '$include']:
-            includeType = INCLUDE_FILE
-        else:
-            includeType = INCLUDE_HEADER
 
-        # filename
-        fn = elem.content[-1]
-        if isinstance(fn, pf.Quoted):
-            # Convert list to args of Para
-            name = pf.stringify(pf.Para(*fn.content), newlines=False)
-        else:
-            name = fn.text
-
-        # config
-        if len(elem.content) == 4:
-            config = parseConfig(elem.content[1].text)
+    if re.match(RE_IS_INCLUDE_LINE, rawString):
+        includeType, name, config = extract_info(rawString)
 
     return includeType, name, config
 
