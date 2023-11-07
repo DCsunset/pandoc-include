@@ -320,4 +320,3 @@ pandoc main.md --filter pandoc-include --citeproc --bibliography=ref.bib -o main
 ## License
 
 MIT License
-
