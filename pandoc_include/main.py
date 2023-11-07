@@ -3,38 +3,49 @@ Panflute filter to allow file includes
 """
 
 import os
-import panflute as pf
 import json
 import glob
 import re
+
+import panflute as pf
+
 from natsort import natsorted
 from urllib.parse import urlparse
-from collections import OrderedDict
+
 from .format_heuristics import formatFromPath
 from .config import parseConfig, parseOptions, TEMP_FILE
-from .utils import eprint
+
+
+# Global variables
+INCLUDE_CMDS     = ['!include', '$include', '!include-header', '$include-header']
+INCLUDE_INVALID  = 0
+INCLUDE_FILE     = 1
+INCLUDE_HEADER   = 2
+
+
+# Record whether the entry has been entered
+entryEnter = False
+# Inherited options
+options = None
 
 
 def is_include_line(elem):
-    # value: return 0 for false, 1 for include file, 2 for include header
-    value = 0
+    includeType = INCLUDE_INVALID
     config = {}
     name = None
     if not hasattr(elem, "_content"):
-        value = 0
+        includeType = INCLUDE_INVALID
     elif (len(elem.content) not in [3, 4]) \
         or (not isinstance(elem.content[0], pf.Str)) \
-        or (elem.content[0].text not in ['!include', '$include', '!include-header', '$include-header']) \
+        or (elem.content[0].text not in INCLUDE_CMDS) \
         or (not isinstance(elem.content[-2], pf.Space)) \
         or (len(elem.content) == 4 and not isinstance(elem.content[1], pf.Code)):
-        value = 0
+        includeType = INCLUDE_INVALID
     else:
         if elem.content[0].text in ['!include', '$include']:
-            # include file
-            value = 1
+            includeType = INCLUDE_FILE
         else:
-            # include header
-            value = 2
+            includeType = INCLUDE_HEADER
 
         # filename
         fn = elem.content[-1]
@@ -43,24 +54,26 @@ def is_include_line(elem):
             name = pf.stringify(pf.Para(*fn.content), newlines=False)
         else:
             name = fn.text
-        
+
         # config
         if len(elem.content) == 4:
             config = parseConfig(elem.content[1].text)
-        
-    return value, name, config
+
+    return includeType, name, config
 
 
 def is_code_include(elem):
     try:
         new_elem = pf.convert_text(elem.text)[0]
     except:
-        return 0, None, None
-    value, name, config = is_include_line(new_elem)
-    if value == 2:
-        eprint("[Warn] Invalid !include-header in code blocks")
-        value = 0
-    return value, name, config
+        return INCLUDE_INVALID, None, None
+
+    includeType, name, config = is_include_line(new_elem)
+    if includeType == INCLUDE_HEADER:
+        pf.debug("[WARN] Invalid !include-header in code blocks")
+        includeType = INCLUDE_INVALID
+
+    return includeType, name, config
 
 
 # Skip whitespaces until newline
@@ -93,7 +106,7 @@ def dedent(content: str, num):
 def read_file(filename, config: dict):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
-    
+
     if "startLine" in config or "endLine" in config:
         lines = content.split("\n")
         startLine = config.get("startLine", 1) - 1
@@ -105,7 +118,7 @@ def read_file(filename, config: dict):
             endLine += len(lines) + 1
         result = lines[startLine:endLine]
         content = "\n".join(result)
-       
+
     if "snippetStart" in config or "snippetEnd" in config:
         start = 0
         length = len(content)
@@ -155,17 +168,11 @@ def read_file(filename, config: dict):
             snippets.append(content[start:subEnd])
             start = end
         content = "\n".join(snippets)
-    
+
     if "dedent" in config:
         content = "\n".join(dedent(content, config["dedent"]))
 
     return content
-
-
-# Record whether the entry has been entered
-entryEnter = False
-# Inherited options
-options = None
 
 
 def action(elem, doc):
@@ -182,16 +189,17 @@ def action(elem, doc):
         os.chdir(entry)
         entryEnter = True
 
+    # --- Include statement ---
     if isinstance(elem, pf.Para):
         includeType, name, config = is_include_line(elem)
 
-        if includeType == 0:
+        if includeType == INCLUDE_INVALID:
             return
 
         # Enable shell-style wildcards
-        files = glob.glob(name)
+        files = glob.glob(name, recursive=True)
         if len(files) == 0:
-            eprint('[Warn] included file not found: ' + name)
+            raise IOError(f"Included file not found: {name}")
 
         # order
         include_order = options['include-order']
@@ -206,8 +214,10 @@ def action(elem, doc):
 
         elements = []
         for fn in files:
+            pf.debug(f"[INFO] including file '{fn}'", end="", flush=True)
             if not os.path.isfile(fn):
-                continue
+                raise IOError(f"Included file not found: {fn}")
+            pf.debug(f"... ok")
 
             raw = read_file(fn, config)
 
@@ -249,19 +259,15 @@ def action(elem, doc):
                     # raw block
                     new_elems = [pf.RawBlock(raw, format=rawFmt)]
                 else:
-                    new_elems = pf.convert_text(
-                        raw,
-                        input_format=fmt,
-                        extra_args=pandoc_options
-                    )
-
-                    # Get metadata (Recursive header include)
-                    new_metadata = pf.convert_text(
+                    new_doc = pf.convert_text(
                         raw,
                         input_format=fmt,
                         standalone=True,
                         extra_args=pandoc_options
-                    ).get_metadata(builtin=False)
+                    )
+
+                    new_metadata = new_doc.get_metadata(builtin=False)
+                    new_elems = new_doc.content.list
 
             else:
                 # Read header from yaml
@@ -279,37 +285,39 @@ def action(elem, doc):
                 os.remove(TEMP_FILE)
             # Restore to current path
             os.chdir(cur_path)
-            options["current-path"] = currentPath 
+            options["current-path"] = currentPath
 
             # incremement headings
             increment = config.get('incrementSection', 0)
 
             if increment:
-                for elem in new_elems:
-                    if isinstance(elem, pf.Header):
-                        elem.level += increment
+                for new_elem in new_elems:
+                    if isinstance(new_elem, pf.Header):
+                        new_elem.level += increment
 
             if new_elems != None:
                 elements += new_elems
 
         return elements
-    
+
+    # --- Code Blocks ---
     elif isinstance(elem, pf.CodeBlock):
         includeType, name, config = is_code_include(elem)
         if includeType == 0:
             return
-        
+
         # Enable shell-style wildcards
-        files = glob.glob(name)
+        files = glob.glob(name, recursive=True)
         if len(files) == 0:
-            eprint('[Warn] included file not found: ' + name)
+            raise IOError(f"File not found: {name}")
 
         codes = []
         for fn in files:
             codes.append(read_file(fn, config))
 
         elem.text = "\n".join(codes)
-    
+
+    # --- Images ---
     elif isinstance(elem, pf.Image):
         rewritePath = options.get("rewrite-path", True)
         if not rewritePath:

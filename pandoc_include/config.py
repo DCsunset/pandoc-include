@@ -2,7 +2,9 @@ import re
 import ast
 import os
 import json
-from .utils import eprint
+
+import panflute as pf
+
 
 CONFIG_KEYS = {
     "startLine": int,
@@ -24,7 +26,7 @@ def parseConfig(text):
     regex = re.compile(
         r'''
             (?P<key>\w+)=      # Key consists of only alphanumerics
-            (?P<quote>["'`]?)   # Optional quote character.
+            (?P<quote>["'`]?)  # Optional quote character.
             (?P<value>.*?)     # Value is a non greedy match
             (?P=quote)         # Closing quote equals the first.
             ($|,)              # Entry ends with comma or end of string
@@ -47,7 +49,7 @@ def parseConfig(text):
             config[key] = value
 
         else:
-            eprint("[Warn] Invalid config key: " + key)
+            pf.debug("[Warn] Invalid config key: " + key)
 
     return config
 
@@ -77,7 +79,7 @@ def parseOptions(doc):
     include_order = doc.get_metadata("include-order")
     if include_order is not None:
         options["include-order"] = include_order
-    
+
     # rewrite path
     rewrite_path = doc.get_metadata("rewrite-path")
     if rewrite_path is not None:
