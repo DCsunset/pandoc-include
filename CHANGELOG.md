@@ -1,6 +1,23 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.2.1](https://github.com/DCsunset/pandoc-include/compare/v1.2.0...v1.2.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* improve efficiency and refactor code ([9cde6de](https://github.com/DCsunset/pandoc-include/commit/9cde6de71a5c17e4fcf0db124468c5137bc9a278))
+
+
+### Misc
+
+* add config for venv ([f94e4c1](https://github.com/DCsunset/pandoc-include/commit/f94e4c19d0845c86433fbe3b619dbe8d5e3d7726))
+* add doc for special filenames ([45b65df](https://github.com/DCsunset/pandoc-include/commit/45b65df64d4b857792f9a8701d707b6cdd33d4d2))
+* add minimum pandoc version ([7136d06](https://github.com/DCsunset/pandoc-include/commit/7136d066cb429fb3c9c1afc39e71846c4ab2eaf7))
+* add test for sepecial filenames ([29ed6e7](https://github.com/DCsunset/pandoc-include/commit/29ed6e71e7a28425bb570aeb4ae64a2a943c822b))
+* update description of format field ([f0cd4fe](https://github.com/DCsunset/pandoc-include/commit/f0cd4fe98532d1df79882eec2c81dc1fc9e27770))
+* update version updater ([c21df5f](https://github.com/DCsunset/pandoc-include/commit/c21df5feca32f646db0d4198d105169d2616870f))
 
 ## [1.2.0](https://github.com/DCsunset/pandoc-include/compare/v1.1.0...v1.2.0) (2021-10-23)
 
