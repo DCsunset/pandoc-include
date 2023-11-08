@@ -21,9 +21,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Install essentials
-        run: pip install twine wheel --user
+        run: pip install -U --user setuptools twine wheel
 
       - name: Build
         env:
@@ -31,8 +31,8 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           python setup.py sdist bdist_wheel
-          twine check dist/* 
+          twine check dist/*
           twine upload --skip-existing dist/*
-      
+
       - name: Release
         uses: softprops/action-gh-release@v1
