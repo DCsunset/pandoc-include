@@ -6,6 +6,7 @@ import os
 import json
 import glob
 import re
+import itertools
 
 import panflute as pf
 
@@ -218,8 +219,16 @@ def action(elem, doc):
         if includeType == INCLUDE_INVALID:
             return
 
+        resource_paths = options['include-resources'].split(':')
+
         # Enable shell-style wildcards
         files = glob.glob(name, recursive=True)
+        if len(files) == 0 and resource_paths:
+            for resource_path in resource_paths:
+                if os.path.isabs(resource_path):
+                    files += glob.glob(os.path.normpath(os.path.join(resource_path, name)), recursive=True)
+                else:
+                    files += glob.glob(os.path.normpath(os.path.join(options['process-path'], resource_path, name)), recursive=True)
         if len(files) == 0:
             raise IOError(f"Included file not found: {name}")
 

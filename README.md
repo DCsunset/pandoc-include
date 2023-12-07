@@ -165,6 +165,7 @@ Supported options:
 ---
 include-entry: '<path>'
 include-order: 'natural'
+include-resources: '<path>[:<path>]'
 rewrite-path: true
 pandoc-options:
   - --filter=pandoc-include
@@ -201,6 +202,46 @@ The `include-order` options is to define the order of included files if the unix
 The default value is `natural`, which means using the [natural order](https://en.wikipedia.org/wiki/Natural_sort_order).
 Other possible values are `alphabetical` and `default`.
 The `default` means to keep the order returned by the Python `glob` module.
+
+
+#### `include-resources`
+The `include-resources` can be used to simplify relative paths of include statements by searching in the given paths for files with relative paths when otherwise not found.
+
+Given following directory structure and `pandoc` command:
+
+```
+main.md
+examples/
+    hello-world.c
+content/
+    chapter1/
+        chapter01.md
+        image.png
+    chapter2/
+        chapter02.md
+        image.png
+```
+```
+$ pandoc --metadata include-resources=examples/ ... main.md
+```
+
+This will make it possible to have following include line in `chapter01.md` and `chapter02.md`
+````markdown
+```cpp
+!include hello-world.c
+```
+````
+
+Instead of:
+````markdown
+```cpp
+!include ../../examples/hello-world.c
+```
+````
+
+This is most useful if some resources, e.g. source code or Doxygen output,
+is located in an external directory structure.
+
 
 #### `rewrite-path`
 
