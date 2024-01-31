@@ -131,28 +131,28 @@ def read_file(filename, config: dict):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
 
-    if "xsl" in config:
-        xslParam = config.get("xsl", None)
+    if "xslt" in config:
+        xsltParam = config.get("xslt", None)
 
-        if not xslParam:
-            raise ValueError(f"Invalid value for xsl file: '{xslParam}'")
+        if not xsltParam:
+            raise ValueError(f"Invalid value for xsl file: '{xsltParam}'")
 
-        xslFilterFile = glob.glob(xslParam, recursive=True)
+        xslTransformerFile = glob.glob(xsltParam, recursive=True)
 
-        if len(xslFilterFile) == 0:
-            raise ValueError(f"xsl filter file not found: '{xslParam}'")
-        elif len(xslFilterFile) > 1:
-            raise ValueError(f"Ambiguous xsl filter file: '{xslParam}'")
+        if len(xslTransformerFile) == 0:
+            raise ValueError(f"xsl transformer file not found: '{xsltParam}'")
+        elif len(xslTransformerFile) > 1:
+            raise ValueError(f"Ambiguous xsl transformer file: '{xsltParam}'")
         else:
-            xslFilterFile = xslFilterFile[0]
+            xslTransformerFile = xslTransformerFile[0]
 
-        pf.debug(f"[INFO] xsl transform {filename} with {xslFilterFile}")
+        pf.debug(f"[INFO] xslt transform {filename} with {xslTransformerFile}")
 
         dom = xml.parse(filename)
 
-        xslt = xml.parse(xslFilterFile)
+        xslt = xml.parse(xslTransformerFile)
         if not xslt:
-            raise IOError("Unable to read XSL file '{xslt}'")
+            raise IOError("Unable to read XSLT file '{xslt}'")
         transform = xml.XSLT(xslt)
         transformedDom = transform(dom)
 

@@ -139,7 +139,7 @@ Or to include snippets with enclosed delimiters:
 
 Or including `xml` files transforming them with `XSLT`:
 ```
-!include`format="markdown", xsl="xsl/api.xslt"` main_8h.xml
+!include`format="markdown", xslt="xslt/api.xslt"` main_8h.xml
 ```
 
 where `<!-- Start -->` and `<!-- End -->` are two strings occuring in `some_file`.

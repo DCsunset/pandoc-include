@@ -52,7 +52,7 @@ extensionFormats = {
     ".csv"      : "csv",
     ".bib"      : "biblatex",
     ".xml"      : "xml",
-    ".xsl"      : "xsl",
+    ".xslt"     : "xslt",
 }
 
 def formatFromPath(path: str):

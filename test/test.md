@@ -88,7 +88,7 @@ $include "included/included 2.tex"
 A simple example showing how to include a doxygen XML output into the document
 
 ```
-include`incrementSection=2, format="markdown", xsl="xsl/api.xslt"` xsl/doc/xml/main_8c.xml
+include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xml/main_8c.xml
 ```
 
-!include`incrementSection=2, format="markdown", xsl="xsl/api.xslt"` xsl/doc/xml/main_8c.xml
+!include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xml/main_8c.xml
