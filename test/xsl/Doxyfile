@@ -1,0 +1,48 @@
+# Doxyfile for calculator program
+
+# Project name and version
+PROJECT_NAME           = "Calculator Program"
+PROJECT_NUMBER         = 1.0
+
+# Output directory for the generated documentation
+OUTPUT_DIRECTORY       = ./doc
+
+# Doxygen XML output
+GENERATE_XML           = YES
+XML_OUTPUT             = xml
+
+# Brief member descriptions in XML output
+XML_PROGRAMLISTING     = YES
+
+# Strip implementation details from the documentation
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+
+# Use Doxygen's built-in C support
+LANGUAGE               = C
+
+# Include the necessary file patterns
+FILE_PATTERNS          = *.c
+
+# Enable the preprocessing steps required by Doxygen
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+
+# Include the necessary directories
+INCLUDE_PATH           = .
+
+# Exclude the build directory
+EXCLUDE_PATTERNS       = */build/*
+
+# Example configuration for some common C projects
+EXAMPLE_PATH           = ./examples
+
+# Disable dot tool
+HAVE_DOT               = NO
+
+# Disable LaTeX and HTML output
+GENERATE_LATEX         = NO
+GENERATE_HTML          = NO
+

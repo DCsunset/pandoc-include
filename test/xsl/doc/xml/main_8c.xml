@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+    <compounddef id="main_8c" kind="file" language="C++">
+        <compoundname>main.c</compoundname>
+        <includes local="no">stdio.h</includes>
+        <includes local="no">math.h</includes>
+        <incdepgraph>
+            <node id="1">
+                <label>main.c</label>
+                <link refid="main_8c" />
+                <childnode refid="2" relation="include">
+                </childnode>
+                <childnode refid="3" relation="include">
+                </childnode>
+            </node>
+            <node id="3">
+                <label>math.h</label>
+            </node>
+            <node id="2">
+                <label>stdio.h</label>
+            </node>
+        </incdepgraph>
+        <sectiondef kind="func">
+            <memberdef kind="function" id="main_8c_1ae0d6d40c5f0dbdd444b0d6e51b224b6f" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double add</definition>
+                <argsstring>(double a, double b)</argsstring>
+                <name>add</name>
+                <param>
+                    <type>double</type>
+                    <declname>a</declname>
+                </param>
+                <param>
+                    <type>double</type>
+                    <declname>b</declname>
+                </param>
+                <briefdescription>
+                    <para>Adds two numbers. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>a</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The first number. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>b</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The second number. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The sum of the two numbers. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="15" column="8" declfile="main.c" declline="15"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1a6ef09b7e29ade3f9231a509cf5e12c33" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double subtract</definition>
+                <argsstring>(double a, double b)</argsstring>
+                <name>subtract</name>
+                <param>
+                    <type>double</type>
+                    <declname>a</declname>
+                </param>
+                <param>
+                    <type>double</type>
+                    <declname>b</declname>
+                </param>
+                <briefdescription>
+                    <para>Subtracts one number from another. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>a</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The first number (minuend). </para>
+                                </parameterdescription>
+                            </parameteritem>
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>b</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The second number (subtrahend). </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The result of subtracting b from a. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="23" column="8" declfile="main.c" declline="23"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1ac949e69d65ab7d1987f3dd728e6d259a" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double multiply</definition>
+                <argsstring>(double a, double b)</argsstring>
+                <name>multiply</name>
+                <param>
+                    <type>double</type>
+                    <declname>a</declname>
+                </param>
+                <param>
+                    <type>double</type>
+                    <declname>b</declname>
+                </param>
+                <briefdescription>
+                    <para>Multiplies two numbers. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>a</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The first number. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>b</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The second number. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The product of the two numbers. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="31" column="8" declfile="main.c" declline="31"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1a8735ddf3ac69922839b5a2151bc7bb53" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double divide</definition>
+                <argsstring>(double a, double b)</argsstring>
+                <name>divide</name>
+                <param>
+                    <type>double</type>
+                    <declname>a</declname>
+                </param>
+                <param>
+                    <type>double</type>
+                    <declname>b</declname>
+                </param>
+                <briefdescription>
+                    <para>Divides one number by another. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>a</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The numerator. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>b</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The denominator. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The result of dividing a by b. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="39" column="8" declfile="main.c" declline="39"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1a5ddf97b981591f0cdf588a16f5053813" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double squareRoot</definition>
+                <argsstring>(double a)</argsstring>
+                <name>squareRoot</name>
+                <param>
+                    <type>double</type>
+                    <declname>a</declname>
+                </param>
+                <briefdescription>
+                    <para>Calculates the square root of a number. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>a</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The number to calculate the square root of. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The square root of the given number. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="46" column="8" declfile="main.c" declline="46"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1a630f46099b43e82f865e5da51d6e7a23" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>double</type>
+                <definition>double power</definition>
+                <argsstring>(double base, double exponent)</argsstring>
+                <name>power</name>
+                <param>
+                    <type>double</type>
+                    <declname>base</declname>
+                </param>
+                <param>
+                    <type>double</type>
+                    <declname>exponent</declname>
+                </param>
+                <briefdescription>
+                    <para>Raises a base to the power of an exponent. </para>
+                </briefdescription>
+                <detaileddescription>
+                    <para><parameterlist kind="param">
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>base</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The base number. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                            <parameteritem>
+                                <parameternamelist>
+                                    <parametername>exponent</parametername>
+                                </parameternamelist>
+                                <parameterdescription>
+                                    <para>The exponent. </para>
+                                </parameterdescription>
+                            </parameteritem>
+                        </parameterlist>
+<simplesect
+                            kind="return">
+                            <para>The result of raising the base to the power of the exponent. </para>
+                        </simplesect>
+                    </para>
+                </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="54" column="8" declfile="main.c" declline="54"
+                    declcolumn="8" />
+            </memberdef>
+            <memberdef kind="function" id="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public"
+                static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+                <type>int</type>
+                <definition>int main</definition>
+                <argsstring>()</argsstring>
+                <name>main</name>
+                <briefdescription> </briefdescription>
+                <detaileddescription> </detaileddescription>
+                <inbodydescription> </inbodydescription>
+                <location file="main.c" line="56" column="5" bodyfile="main.c" bodystart="56"
+                    bodyend="109" />
+            </memberdef>
+        </sectiondef>
+        <briefdescription> </briefdescription>
+        <detaileddescription> </detaileddescription>
+        <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp />&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">
+                    #include<sp />&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />add(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />a,<sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />b);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />subtract(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />a,<sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />b);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />multiply(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />a,<sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />b);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />divide(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />a,<sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />b);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />squareRoot(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />a);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />power(</highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />base,<sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />exponent);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">
+                    int</highlight><highlight class="normal"><sp />main()<sp />{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordtype">
+                    char</highlight><highlight class="normal"><sp /></highlight><highlight class="keyword">
+                    operator</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordtype">
+                    double</highlight><highlight class="normal"><sp />num1,<sp />num2,<sp />result;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Get<sp />operator<sp />and<sp />operands<sp />from<sp />user</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Enter<sp />operator<sp />(+,<sp />
+                    -,<sp />*,<sp />/,<sp />sqrt,<sp />pow):<sp />&quot;</highlight><highlight class="normal">
+                    );</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    scanf(</highlight><highlight class="stringliteral">&quot;<sp />%c&quot;</highlight><highlight class="normal">
+                    ,<sp />&amp;</highlight><highlight class="keyword">operator</highlight><highlight class="normal">
+                    );<sp /><sp /></highlight><highlight class="comment">//<sp />Note<sp />the<sp />space<sp />
+                    before<sp />%c<sp />to<sp />consume<sp />the<sp />newline<sp />character</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    if</highlight><highlight class="normal"><sp />(</highlight><highlight class="keyword">
+                    operator</highlight><highlight class="normal"><sp />!=<sp /></highlight><highlight class="stringliteral">
+                    &apos;sqrt&apos;</highlight><highlight class="normal"><sp />&amp;&amp;<sp /></highlight><highlight class="keyword">
+                    operator</highlight><highlight class="normal"><sp />!=<sp /></highlight><highlight class="stringliteral">
+                    &apos;pow&apos;</highlight><highlight class="normal">)<sp />{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Enter<sp />first<sp />number:<sp />
+                    &quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    scanf(</highlight><highlight class="stringliteral">&quot;%lf&quot;</highlight><highlight class="normal">
+                    ,<sp />&amp;num1);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    }</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="comment">
+                    //<sp />For<sp />sqrt,<sp />only<sp />one<sp />number<sp />is<sp />needed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    if</highlight><highlight class="normal"><sp />(</highlight><highlight class="keyword">
+                    operator</highlight><highlight class="normal"><sp />!=<sp /></highlight><highlight class="stringliteral">
+                    &apos;sqrt&apos;</highlight><highlight class="normal">)<sp />{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Enter<sp />second<sp />number:<sp />
+                    &quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    scanf(</highlight><highlight class="stringliteral">&quot;%lf&quot;</highlight><highlight class="normal">
+                    ,<sp />&amp;num2);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    }</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Perform<sp />calculation<sp />based<sp />on<sp />the<sp />operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    switch</highlight><highlight class="normal"><sp />(</highlight><highlight class="keyword">
+                    operator</highlight><highlight class="normal">)<sp />{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="charliteral">
+                    &apos;+&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />add(num1,<sp />num2);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="charliteral">
+                    &apos;-&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />subtract(num1,<sp />num2);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="charliteral">
+                    &apos;*&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />multiply(num1,<sp />num2);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="charliteral">
+                    &apos;/&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    if</highlight><highlight class="normal"><sp />(num2<sp />!=<sp />0)<sp />{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />divide(num1,<sp />num2);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    }<sp /></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp />
+                    {</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Error:<sp />Division<sp />by<sp />
+                    zero<sp />is<sp />not<sp />allowed.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    return</highlight><highlight class="normal"><sp />1;<sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Exit<sp />with<sp />an<sp />error<sp />code</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    }</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="stringliteral">
+                    &apos;sqrt&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />squareRoot(num1);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    case</highlight><highlight class="normal"><sp /></highlight><highlight class="stringliteral">
+                    &apos;pow&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    result<sp />=<sp />power(num1,<sp />num2);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Error:<sp />Invalid<sp />
+                    operator.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    return</highlight><highlight class="normal"><sp />1;<sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Exit<sp />with<sp />an<sp />error<sp />code</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    }</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Display<sp />the<sp />result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp /><sp /><sp /><sp />
+                    printf(</highlight><highlight class="stringliteral">&quot;Result:<sp />%lf\n&quot;</highlight><highlight class="normal">
+                    ,<sp />result);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp /><sp /><sp /><sp /></highlight><highlight class="keywordflow">
+                    return</highlight><highlight class="normal"><sp />0;<sp /><sp /></highlight><highlight class="comment">
+                    //<sp />Exit<sp />successfully</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">
+                    }</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">
+                    //<sp />Function<sp />definitions<sp />remain<sp />unchanged</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+        <location file="main.c" />
+    </compounddef>
+</doxygen>

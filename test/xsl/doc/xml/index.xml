@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+  <compound refid="main_8c" kind="file"><name>main.c</name>
+    <member refid="main_8c_1ae0d6d40c5f0dbdd444b0d6e51b224b6f" kind="function"><name>add</name></member>
+    <member refid="main_8c_1a6ef09b7e29ade3f9231a509cf5e12c33" kind="function"><name>subtract</name></member>
+    <member refid="main_8c_1ac949e69d65ab7d1987f3dd728e6d259a" kind="function"><name>multiply</name></member>
+    <member refid="main_8c_1a8735ddf3ac69922839b5a2151bc7bb53" kind="function"><name>divide</name></member>
+    <member refid="main_8c_1a5ddf97b981591f0cdf588a16f5053813" kind="function"><name>squareRoot</name></member>
+    <member refid="main_8c_1a630f46099b43e82f865e5da51d6e7a23" kind="function"><name>power</name></member>
+    <member refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+</doxygenindex>
