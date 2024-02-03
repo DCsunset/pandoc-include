@@ -50,7 +50,9 @@ extensionFormats = {
     ".xhtml"    : "html",
     ".ipynb"    : "ipynb",
     ".csv"      : "csv",
-    ".bib"      : "biblatex"
+    ".bib"      : "biblatex",
+    ".xml"      : "xml",
+    ".xslt"     : "xslt",
 }
 
 def formatFromPath(path: str):

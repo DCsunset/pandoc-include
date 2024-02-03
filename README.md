@@ -137,6 +137,11 @@ Or to include snippets with enclosed delimiters:
 !include`snippetStart="<!-- Start -->", snippetEnd="<!-- End -->"` some_file
 ```
 
+Or including `xml` files transforming them with `XSLT`:
+```
+!include`format="markdown", xslt="xslt/api.xslt"` main_8h.xml
+```
+
 where `<!-- Start -->` and `<!-- End -->` are two strings occuring in `some_file`.
 
 If multiple occurences of `<!-- Start -->` or `<!-- End -->` are in `some_file`, then pandoc-include will include all the blocks between the delimiters.
@@ -155,6 +160,7 @@ Supported options:
 | dedent | `int` | Remove n leading whitespaces of each line where possible (`-1` means remove all) |
 | format | `str` | The input format of the included file (see `pandoc --list-input-formats`). It will be automatically deduced from the path if not set. (Hint: extensions can also be enabled here) |
 | raw | `str` | Include as raw block. The arg is the format (`latex`, `html`...) |
+| xslt | `str` | `XSLT` file to use for transforming the given `.xml` file (This is intended to be used with Doxygen's `xml` output |
 
 **Note**: the values above are parsed as Python literals. So `str` should be quoted like `'xxx'` or `"xxx"`; `bool` should be `True` or `False`.
 

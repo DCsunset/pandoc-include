@@ -82,3 +82,13 @@ $include "included/included 2.tex"
 ### Line Number
 
 !include`startLine=1, endLine=5` included/included-1.md
+
+## Doxygen/XSLT Example
+
+A simple example showing how to include a doxygen XML output into the document
+
+```
+include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xml/main_8c.xml
+```
+
+!include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xml/main_8c.xml
