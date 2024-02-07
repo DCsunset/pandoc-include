@@ -15,7 +15,7 @@ from natsort import natsorted
 from urllib.parse import urlparse
 
 from .format_heuristics import formatFromPath
-from .config import parseConfig, parseOptions, TEMP_FILE
+from .config import parseConfig, parseOptions, TEMP_FILE, Env
 
 
 # Global variables
@@ -32,6 +32,9 @@ RE_INCLUDE_PATTERN    = r"^(\\?(!|\$))include(-header)?(\`(?P<args>[^\`]+(, ?[^\
 entryEnter = False
 # Inherited options
 options = None
+
+# parse env config
+Env.parse()
 
 
 def extract_info(rawString):
@@ -258,7 +261,12 @@ def action(elem, doc):
                 else:
                     files += glob.glob(os.path.normpath(os.path.join(options['process-path'], resource_path, name)), recursive=True)
         if len(files) == 0:
-            raise IOError(f"Included file not found: {name}")
+            msg = f"Included file not found: {name}"
+            if Env.NotFoundError:
+                raise IOError(msg)
+            else:
+                pf.debug(f"[WARNING] {msg}")
+                return
 
         # order
         include_order = options['include-order']

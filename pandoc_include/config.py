@@ -23,6 +23,18 @@ CONFIG_KEYS = {
 # in order to be found by subprocesses
 TEMP_FILE = '.temp.pandoc-include'
 
+def parseBoolValue(val):
+    # use 1 or 0 (otherwise default to true if not empty)
+    return val and val != "0"
+
+# Keys for env config
+class Env:
+  NotFoundError = False
+
+  def parse():
+      Env.NotFoundError = parseBoolValue(os.environ.get(f"PANDOC_INCLUDE_NOT_FOUND_ERROR", "0"))
+
+
 def parseConfig(text):
     regex = re.compile(
         r'''

@@ -14,6 +14,13 @@ pandoc-options:
 
 # Test
 
+## Non-existent file
+
+(Should give a warning)
+
+!include not_exists.file
+
+
 ## Included file list
 
 * included-1.md
@@ -92,3 +99,5 @@ include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xm
 ```
 
 !include`incrementSection=2, format="markdown", xslt="xslt/api.xslt"` xslt/doc/xml/main_8c.xml
+
+
