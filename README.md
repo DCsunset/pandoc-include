@@ -352,6 +352,16 @@ Body
 
 ```
 
+
+### Environment Variables
+
+The following environment variables can be set to change the default behaviour:
+
+| Key                            | Value      | Description                                  |
+|--------------------------------|------------|----------------------------------------------|
+| PANDOC_INCLUDE_NOT_FOUND_ERROR | `0` or `1` | Emit an error if file not found (default: 0) |
+
+
 ## Development
 
 To setup local dev environment, you can use python `venv` to create a virtual environment from `requirements.txt`.
