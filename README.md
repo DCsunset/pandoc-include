@@ -352,6 +352,13 @@ Body
 
 ```
 
+## Development
+
+To setup local dev environment, you can use python `venv` to create a virtual environment from `requirements.txt`.
+
+Or if you use Nix, you can simply run `nix develop`.
+
+
 ## Trouble Shooting
 
 The pandoc command-line options are processed in order.
