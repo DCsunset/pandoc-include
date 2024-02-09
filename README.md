@@ -23,6 +23,9 @@ When an included file has its header, it will be merged into the current header.
 If there's a conflict, the original header of the current file remains.
 * Header include: Use `!include-header file.yaml` to include Yaml header from file.
 
+## TODO
+
+- [] Write options to a tmp file and pass the filename by environment variable
 
 ## Installation
 
