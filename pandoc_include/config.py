@@ -67,20 +67,23 @@ def parseConfig(text):
     return config
 
 
+defaultOptions = {
+    "current-path": ".",
+    "include-resources": ".",
+    "process-path": None,
+    "include-order": "natural",
+    "rewrite-path": True,
+    "pandoc-options": ["--filter=pandoc-include"]
+}
+
 def parseOptions(doc):
     if os.path.isfile(TEMP_FILE):
         with open(TEMP_FILE, 'r') as f:
-            options = json.load(f)
+            # merge with default options to prevent missing keys
+            options = defaultOptions | json.load(f)
     else:
         # entry file (default values)
-        options = {
-            "current-path": ".",
-            "include-resources": ".",
-            "process-path": None,
-            "include-order": "natural",
-            "rewrite-path": True,
-            "pandoc-options": ["--filter=pandoc-include"]
-        }
+        options = defaultOptions.copy()
 
     # pandoc options
     pandoc_options = doc.get_metadata('pandoc-options')
