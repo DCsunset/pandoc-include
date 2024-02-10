@@ -13,3 +13,7 @@ debug:
 clean:
 	rm -f test-out.md test-out.pdf test.pdf included/test.out debug.pdf
 
+.PHONY: nixpkgs
+nixpkgs:
+	pandoc test.md -t json | ${NIXPKGS}/result/bin/pandoc-include | pandoc -f json -o test.pdf
+
