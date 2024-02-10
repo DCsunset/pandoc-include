@@ -76,7 +76,7 @@ def extract_info(rawString):
 
 def is_include_line(elem):
     # Revert to Markdown for regex matching
-    rawString = pf.convert_text(elem, input_format='panflute', output_format='markdown', standalone=True)
+    rawString = pf.convert_text(elem, input_format='panflute', output_format='markdown_strict', standalone=True)
 
     includeType = INCLUDE_INVALID
     config = {}

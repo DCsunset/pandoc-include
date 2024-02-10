@@ -20,6 +20,8 @@ pandoc-options:
 
 !include not_exists.file
 
+!include <not_exists>
+
 ## Included file list
 
 * included-1.md
