@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/DCsunset/pandoc-include/compare/v1.2.1...v1.3.0) (2024-02-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* emit a warning if file not found by default
+
+### Features
+
+* Adding handling of resource-paths for includes by adding `include-resources` as meta data variable. ([f5c0644](https://github.com/DCsunset/pandoc-include/commit/f5c064451f8e42045de9710a53a71ee866a723bc))
+* Adding possibility to include `XML` files while applying a `XSL` transformation ([fd001f9](https://github.com/DCsunset/pandoc-include/commit/fd001f981fced76684ea39cec04f8bbefb78533f))
+* emit a warning if file not found by default ([560f850](https://github.com/DCsunset/pandoc-include/commit/560f85028bb4b5fbd753f1107225f5a175a46a39))
+
+
+### Bug Fixes
+
+* convert to strict markdown to test include line ([adfe00e](https://github.com/DCsunset/pandoc-include/commit/adfe00e1ac4abedcc78ade4266d23e456f9e36fe))
+* fix not found error for code include ([6260381](https://github.com/DCsunset/pandoc-include/commit/62603811ab687b7e9cf73b032d29fc0c3fb31303))
+* merge options with default to prevent missing keys ([b21fb71](https://github.com/DCsunset/pandoc-include/commit/b21fb71606abad1ccfb96943253e7813e81a923d))
+
+
+### Misc
+
+* add docs for environment variables ([d5d82e0](https://github.com/DCsunset/pandoc-include/commit/d5d82e07b5d05c1f41bcb26e212480becd859b9d))
+* add nix flake for dev environment ([6c6422d](https://github.com/DCsunset/pandoc-include/commit/6c6422d684530f4047b30e7abd4c6d36b978bfe4))
+* add todo items ([0c5e8fd](https://github.com/DCsunset/pandoc-include/commit/0c5e8fd8e0936ff49c86e7f3cfecf6fca3a46abd))
+* allow manual dispatch ([f7a6be3](https://github.com/DCsunset/pandoc-include/commit/f7a6be3c2e3a7d812debc5cbb8f6ec91ff440425))
+* fix github action ([63c5c62](https://github.com/DCsunset/pandoc-include/commit/63c5c6298897faabb89b50709503d171ce34f5de))
+
 ## [1.2.1](https://github.com/DCsunset/pandoc-include/compare/v1.2.0...v1.2.1) (2023-11-08)
 
 
