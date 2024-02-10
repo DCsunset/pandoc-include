@@ -20,7 +20,6 @@ pandoc-options:
 
 !include not_exists.file
 
-
 ## Included file list
 
 * included-1.md
@@ -60,6 +59,11 @@ $include "included/included 2.tex"
 ```py
 !include `__test__.py`
 ```
+
+```py
+!include non-exist
+```
+
 
 ## Include reST
 

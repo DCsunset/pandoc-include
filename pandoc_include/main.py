@@ -36,7 +36,6 @@ options = None
 # parse env config
 Env.parse()
 
-
 def extract_info(rawString):
     global entryEnter
     global options
@@ -376,7 +375,12 @@ def action(elem, doc):
         # Enable shell-style wildcards
         files = glob.glob(name, recursive=True)
         if len(files) == 0:
-            raise IOError(f"File not found: {name}")
+            msg = f"Included file not found: {name}"
+            if Env.NotFoundError:
+                raise IOError(msg)
+            else:
+                pf.debug(f"[WARNING] {msg}")
+                return
 
         codes = []
         for fn in files:
