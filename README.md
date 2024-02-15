@@ -25,20 +25,18 @@ If there's a conflict, the original header of the current file remains.
 
 ## TODO
 
-- [] Write options to a tmp file and pass the filename by environment variable
+- [ ] Write options to a tmp file and pass the filename by environment variable
 
 ## Installation
 
-pandoc-include requires [python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/installing/).
+### Using pip
 
-Then, use pip to install:
+To install the latest published version:
 
 ```
 pip install --user pandoc-include
 ```
 
-After installation,
-make sure that the `pandoc-include` executable is put in the directory which is in **the PATH environment**.
 
 To install the current (development) version hosted on the repository, use
 
@@ -46,13 +44,25 @@ To install the current (development) version hosted on the repository, use
 pip install --upgrade --force --no-cache git+https://github.com/DCsunset/pandoc-include
 ```
 
-You can use
+To check the version currently installed:
 
 ```
 pip show pandoc-include
 ```
 
-to check the version currently installed.
+### Using Nix
+
+`pandoc-include` is included in the Nixpkgs.
+Simply add the package to your NixOS config or use the following command:
+
+```sh
+# install in your profile
+nix-env -iA nixpkgs.pandoc-include
+
+# Or use it temporarily in a shell
+nix-shell -p pandoc-include
+```
+
 
 ## Usage
 
@@ -374,6 +384,8 @@ Or if you use Nix, you can simply run `nix develop`.
 
 ## Trouble Shooting
 
+### Command-line options
+
 The pandoc command-line options are processed in order.
 If you want some options to be applied in included files,
 make sure the `--filter pandoc-include` option is specified before those options.
@@ -383,6 +395,11 @@ For example, use bibliography in the included files:
 ```
 pandoc main.md --filter pandoc-include --citeproc --bibliography=ref.bib -o main.pdf
 ```
+
+### Executable not found
+
+For some operating systems, the path may not be set correctly after installation.
+Make sure that the `pandoc-include` executable is put in the directory which is in **the PATH environment**.
 
 ## License
 
