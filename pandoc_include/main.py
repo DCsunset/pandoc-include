@@ -129,6 +129,20 @@ def dedent(content: str, num):
     return list(map(lambda s: removeLeadingWhitespaces(s, num), lines))
 
 
+def findFile(filename: str):
+    resource_paths = options['include-resources'].split(':')
+
+    files = glob.glob(filename, recursive=True)
+    if len(files) == 0 and resource_paths:
+        for resource_path in resource_paths:
+            if os.path.isabs(resource_path):
+                files += glob.glob(os.path.normpath(os.path.join(resource_path, filename)), recursive=True)
+            else:
+                files += glob.glob(os.path.normpath(os.path.join(options['process-path'], resource_path, filename)), recursive=True)
+
+    return files
+
+
 def read_file(filename, config: dict):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
@@ -139,8 +153,7 @@ def read_file(filename, config: dict):
         if not xsltParam:
             raise ValueError(f"Invalid value for xsl file: '{xsltParam}'")
 
-        xslTransformerFile = glob.glob(xsltParam, recursive=True)
-
+        xslTransformerFile = findFile(xsltParam)
         if len(xslTransformerFile) == 0:
             raise ValueError(f"xsl transformer file not found: '{xsltParam}'")
         elif len(xslTransformerFile) > 1:
@@ -249,16 +262,7 @@ def action(elem, doc):
         if includeType == INCLUDE_INVALID:
             return
 
-        resource_paths = options['include-resources'].split(':')
-
-        # Enable shell-style wildcards
-        files = glob.glob(name, recursive=True)
-        if len(files) == 0 and resource_paths:
-            for resource_path in resource_paths:
-                if os.path.isabs(resource_path):
-                    files += glob.glob(os.path.normpath(os.path.join(resource_path, name)), recursive=True)
-                else:
-                    files += glob.glob(os.path.normpath(os.path.join(options['process-path'], resource_path, name)), recursive=True)
+        files = findFile(name)
         if len(files) == 0:
             msg = f"Included file not found: {name}"
             if Env.NotFoundError:
@@ -373,7 +377,7 @@ def action(elem, doc):
             return
 
         # Enable shell-style wildcards
-        files = glob.glob(name, recursive=True)
+        files = findFile(name)
         if len(files) == 0:
             msg = f"Included file not found: {name}"
             if Env.NotFoundError:
