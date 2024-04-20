@@ -382,6 +382,15 @@ To setup local dev environment, you can use python `venv` to create a virtual en
 Or if you use Nix, you can simply run `nix develop`.
 
 
+## Contributing
+
+Contributions are welcome if you find any bugs or want to add some features.
+Please open an issue for discussion first if it's a big change (e.g. a new feature) or if you are uncertain about it.
+
+Please follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+for your commit messages so that the changelog can be generated automatically.
+
+
 ## Trouble Shooting
 
 ### Command-line options
