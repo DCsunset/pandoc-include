@@ -46,7 +46,8 @@ def extract_info(rawString):
 
     # wildcards '*' are escaped which needs to be undone because of path globing
     # convert_text has a tendency to produce multiline text which can not be matched correctly
-    rawString = rawString.replace('\\*', '*').replace('\n', ' ')
+    # Also here we should unescape underscores from markdown_strict.
+    rawString = rawString.replace('\\*', '*').replace('\n', ' ').replace('\\_', '_')
 
     if re.match(RE_IS_INCLUDE_HEADER, rawString):
         includeType = INCLUDE_HEADER
