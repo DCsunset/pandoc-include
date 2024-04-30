@@ -164,7 +164,7 @@ def read_file(filename, config: dict):
 
         pf.debug(f"[INFO] xslt transform {filename} with {xslTransformerFile}")
 
-        dom = xml.parse(filename)
+        dom = xml.parse(filename, xml.XMLParser(recover=True))
 
         xslt = xml.parse(xslTransformerFile)
         if not xslt:
