@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.2](https://github.com/DCsunset/pandoc-include/compare/v1.3.1...v1.3.2) (2024-05-13)
+
+
+### Bug Fixes
+
+* allow the XML parser to recover in case of syntax errors for a more robust behavior ([eb26976](https://github.com/DCsunset/pandoc-include/commit/eb269767b12cd54979cd766848dc4260421e8ec5))
+* fix version number ([750b538](https://github.com/DCsunset/pandoc-include/commit/750b53850c4f9662fa6a440f4fc35a00449fd832))
+* should unescape underscores back from markdown strict ([f16ed6b](https://github.com/DCsunset/pandoc-include/commit/f16ed6bf9031f808b8244862efab76e7985f910f))
+
+
+### Misc
+
+* add contributing section ([0a583d0](https://github.com/DCsunset/pandoc-include/commit/0a583d08a690d028f630859851a77f75069852f6))
+* fix changelog ([faf1870](https://github.com/DCsunset/pandoc-include/commit/faf1870ab91ca6b64898ffe5ecba282f18cb3826))
+
 ## [1.3.1](https://github.com/DCsunset/pandoc-include/compare/v1.3.0...v1.3.1) (2024-03-31)
 
 
