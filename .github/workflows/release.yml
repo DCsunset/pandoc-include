@@ -24,14 +24,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install essentials
-        run: pip install -U --user setuptools twine wheel
+        run: pip install ".[pypi]"
 
       - name: Build
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          python setup.py sdist bdist_wheel
+          python -m build
           twine check dist/*
           twine upload --skip-existing dist/*
 
