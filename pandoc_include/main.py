@@ -409,8 +409,8 @@ def action(elem, doc):
         if os.path.isabs(url):
             return
 
-        # rewrite relative path
-        elem.url = os.path.join(options["current-path"], url)
+        # rewrite relative to absolute path
+        elem.url = os.path.abspath(url)
 
 
 def main(doc=None):
