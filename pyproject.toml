@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["pandoc_include"]
+
+[project]
+name = "pandoc-include"
+version = "1.3.2"
+description = "Pandoc filter to allow file and header includes"
+readme = "README.md"
+authors = [{name = "DCsunset", email = "DCsunset@protonmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.7"
+keywords = ["pandoc", "pandocfilters", "markdown", "latex"]
+classifiers = [
+    'Environment :: Console',
+    'Intended Audience :: End Users/Desktop',
+    'Programming Language :: Python',
+    'License :: OSI Approved :: MIT License'
+]
+dependencies = [
+    "panflute>=2.0.5",
+    "natsort>=7",
+    "lxml>=4.9.2"
+]
+
+[project.optional-dependencies]
+pypi = [
+    "build",
+    "twine",
+    "wheel"
+]
+
+[project.urls]
+homepage = 'https://github.com/DCsunset/pandoc-include'
+
+[project.scripts]
+pandoc-include = "pandoc_include.main:main"
