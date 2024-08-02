@@ -11,11 +11,13 @@
       ];
 
       perSystem = { self', system, pkgs, ... }: let
-        # common dependencies
-        deps = with pkgs.python3Packages; [
-          panflute
-          natsort
-          lxml
+        deps = with pkgs; [
+          (python3.withPackages (ps: with ps; [
+            panflute
+            natsort
+            lxml
+            build
+          ]))
         ];
       in {
         devShells = {
