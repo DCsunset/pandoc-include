@@ -7,6 +7,7 @@ import json
 import glob
 import re
 import itertools
+from pathlib import Path
 
 import panflute as pf
 import lxml.etree as xml
@@ -410,7 +411,7 @@ def action(elem, doc):
             return
 
         # rewrite relative path
-        elem.url = os.path.join(options["current-path"], url)
+        elem.url = str(Path(entry or ".").joinpath(options["current-path"]).joinpath(url))
 
 
 def main(doc=None):
