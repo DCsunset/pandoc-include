@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.3](https://github.com/DCsunset/pandoc-include/compare/v1.3.2...v1.3.3) (2024-08-05)
+
+
+### Bug Fixes
+
+* fix relative path rewrite ([4ed0ac4](https://github.com/DCsunset/pandoc-include/commit/4ed0ac4825fe868b8978a5d3187b65f22ad12466))
+
+
+### Misc
+
+* add direnv config ([64390c2](https://github.com/DCsunset/pandoc-include/commit/64390c24d71cec4d9783b6aa447afadb6589be9c))
+* add more test cases ([d6b4030](https://github.com/DCsunset/pandoc-include/commit/d6b40301494cc6287fcdbaa30d4134de78b86fce))
+* clean up test dir ([097378e](https://github.com/DCsunset/pandoc-include/commit/097378e37c356e69a8d6cf6674812097d01e539b))
+* fix some test case ([1195edc](https://github.com/DCsunset/pandoc-include/commit/1195edc26314efd0da61c0aacb1bf2bce9ec07ff))
+* update flake inputs ([c8fb03f](https://github.com/DCsunset/pandoc-include/commit/c8fb03f0a1fa8329cc02101e49354e5a6d4d6b54))
+* update nix devShell dependencies ([b25184f](https://github.com/DCsunset/pandoc-include/commit/b25184f5efffec092fecdb110298c536f24e3678))
+* update version bumper ([c64b30d](https://github.com/DCsunset/pandoc-include/commit/c64b30db7c40d5b91514b55c67f2b6eb2eefa4a9))
+
 ## [1.3.2](https://github.com/DCsunset/pandoc-include/compare/v1.3.1...v1.3.2) (2024-05-13)
 
 
