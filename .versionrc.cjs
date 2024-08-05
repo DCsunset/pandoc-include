@@ -1,12 +1,12 @@
-const re = /version = '(\d\.\d\.\d)'/;
+const re = /version = "(\d\.\d\.\d)"/;
 
 const updater = {
   readVersion: (contents) => contents.match(re)[1],
-  writeVersion: (contents, version) => contents.replace(re, `version = '${version}'`)
+  writeVersion: (contents, version) => contents.replace(re, `version = "${version}"`)
 };
 
 const tracker = {
-  filename: "./setup.py",
+  filename: "pyproject.toml",
   updater
 }
 
