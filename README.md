@@ -4,11 +4,7 @@
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pandoc-include)](https://pypi.org/project/pandoc-include/)
 [![GitHub](https://img.shields.io/github/license/DCsunset/pandoc-include?color=blue)](https://github.com/DCsunset/pandoc-include)
 
-Pandoc filter to allow file and header includes.
-
-The filter script is based on
-[User Guide for Panflute](http://scorreia.com/software/panflute/guide.html#using-the-included-batteries).
-This repository is to provide a simple way to install and use it.
+Pandoc filter to allow including files and headers in a document.
 
 ## Features
 
