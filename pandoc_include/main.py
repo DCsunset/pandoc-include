@@ -251,10 +251,9 @@ def action(elem, doc):
     if options is None:
         options = parseOptions(doc)
 
-    # The entry file's directory
-    entry = doc.get_metadata('include-entry')
-    if not entryEnter and entry:
-        os.chdir(entry)
+    # Change dir to entry file
+    if not entryEnter and options["include-entry"]:
+        os.chdir(options["include-entry"])
         entryEnter = True
 
     # --- Include statement ---
@@ -411,7 +410,7 @@ def action(elem, doc):
             return
 
         # rewrite relative path
-        elem.url = str(Path(entry or ".").joinpath(options["current-path"]).joinpath(url))
+        elem.url = str(Path(options["include-entry"] or ".").joinpath(options["current-path"]).joinpath(url))
 
 
 def main(doc=None):

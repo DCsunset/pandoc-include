@@ -68,6 +68,7 @@ def parseConfig(text):
 
 
 defaultOptions = {
+    "include-entry": None,
     "current-path": ".",
     "include-resources": ".",
     "process-path": None,
@@ -84,6 +85,11 @@ def parseOptions(doc):
     else:
         # entry file (default values)
         options = defaultOptions.copy()
+
+    # include entry
+    include_entry = doc.get_metadata('include-entry')
+    if include_entry is not None:
+      options['include-entry'] = include_entry
 
     # pandoc options
     pandoc_options = doc.get_metadata('pandoc-options')
