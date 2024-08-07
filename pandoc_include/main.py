@@ -29,8 +29,6 @@ RE_IS_INCLUDE_HEADER  = r"(\\?(!|\$))include-header"
 RE_IS_INCLUDE_LINE    = r"^(\\?(!|\$))include(-header)?"
 RE_INCLUDE_PATTERN    = r"^(\\?(!|\$))include(-header)?(\`(?P<args>[^\`]+(, ?[^\`]+)*)\`)? ((?P<fname>[^\`\'\"]+)|([\`\'\"])(?P<fnamealt>.+)\9)$"
 
-# Record whether the entry has been entered
-entryEnter = False
 # Inherited options
 options = None
 
@@ -38,7 +36,6 @@ options = None
 Env.parse()
 
 def extract_info(rawString):
-    global entryEnter
     global options
 
     includeType = INCLUDE_INVALID
@@ -244,7 +241,6 @@ def read_file(filename, config: dict):
 
 
 def action(elem, doc):
-    global entryEnter
     global options
 
     # Try to read inherited options from temp file
@@ -252,9 +248,10 @@ def action(elem, doc):
         options = parseOptions(doc)
 
     # Change dir to entry file
-    if not entryEnter and options["include-entry"]:
-        os.chdir(options["include-entry"])
-        entryEnter = True
+    entry = options["include-entry"]
+    if not entry["entered"]:
+        os.chdir(entry["path"])
+        entry["entered"] = True
 
     # --- Include statement ---
     if isinstance(elem, pf.Para):
@@ -410,7 +407,11 @@ def action(elem, doc):
             return
 
         # rewrite relative path
-        elem.url = str(Path(options["include-entry"] or ".").joinpath(options["current-path"]).joinpath(url))
+        elem.url = str(
+            Path(options["include-entry"]["path"])
+                .joinpath(options["current-path"])
+                .joinpath(url)
+        )
 
 
 def main(doc=None):

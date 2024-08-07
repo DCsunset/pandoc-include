@@ -68,7 +68,10 @@ def parseConfig(text):
 
 
 defaultOptions = {
-    "include-entry": None,
+    "include-entry": {
+        "path": ".",
+        "entered": False
+    },
     "current-path": ".",
     "include-resources": ".",
     "process-path": None,
@@ -89,7 +92,10 @@ def parseOptions(doc):
     # include entry
     include_entry = doc.get_metadata('include-entry')
     if include_entry is not None:
-      options['include-entry'] = include_entry
+        if not options["include-entry"]["entered"]:
+            options['include-entry'] = dict(path=include_entry, entered=False)
+        else:
+            pf.debug("[WARN] include-entry specified multiple times")
 
     # pandoc options
     pandoc_options = doc.get_metadata('pandoc-options')
