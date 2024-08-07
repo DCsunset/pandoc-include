@@ -12,6 +12,10 @@
 
       perSystem = { self', system, pkgs, ... }: let
         deps = with pkgs; [
+          (pandoc-include.overrideAttrs (_: {
+            src = ./.;
+            name = "pandoc-include-master";
+          }))
           (python3.withPackages (ps: with ps; [
             panflute
             natsort
