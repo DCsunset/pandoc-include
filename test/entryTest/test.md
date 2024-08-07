@@ -1,5 +1,5 @@
 ---
-include-entry: 'entryTest'
+include-entry: entryTest
 ---
 
 # Test
@@ -18,4 +18,8 @@ include-entry: 'entryTest'
 ### A simple latex table
 
 $include subincluded/included 2.tex
+
+## Included image
+
+!include subincluded/img.md
 

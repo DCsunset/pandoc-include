@@ -67,10 +67,6 @@ $include "included/included 2.tex"
 ```
 
 
-## Include reST
-
-!include included/image.rst
-
 ## Include with options
 
 ### Delimiters
