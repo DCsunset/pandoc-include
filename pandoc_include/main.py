@@ -75,7 +75,13 @@ def extract_info(rawString):
 
 def is_include_line(elem):
     # Revert to Markdown for regex matching
-    rawString = pf.convert_text(elem, input_format='panflute', output_format='markdown_strict', standalone=True)
+    rawString = pf.convert_text(
+        elem,
+        input_format='panflute',
+        output_format='markdown_strict',
+        standalone=True,
+        pandoc_path=Env.PandocBin
+    )
 
     includeType = INCLUDE_INVALID
     config = {}
@@ -89,7 +95,7 @@ def is_include_line(elem):
 
 def is_code_include(elem):
     try:
-        new_elem = pf.convert_text(elem.text)[0]
+        new_elem = pf.convert_text(elem.text, pandoc_path=Env.PandocBin)[0]
     except:
         return INCLUDE_INVALID, None, None
 
@@ -331,7 +337,8 @@ def action(elem, doc):
                         raw,
                         input_format=fmt,
                         standalone=True,
-                        extra_args=pandoc_options
+                        extra_args=pandoc_options,
+                        pandoc_path=Env.PandocBin
                     )
 
                     new_metadata = new_doc.get_metadata(builtin=False)
@@ -340,7 +347,11 @@ def action(elem, doc):
             else:
                 # Read header from yaml
                 # Use pf to preserve all info
-                new_metadata = pf.convert_text(f"---\n{raw}\n---", standalone=True).get_metadata(builtin=False)
+                new_metadata = pf.convert_text(
+                    f"---\n{raw}\n---",
+                    standalone=True,
+                    pandoc_path=Env.PandocBin
+                ).get_metadata(builtin=False)
 
             # Merge metadata
             if new_metadata is not None:

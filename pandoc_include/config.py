@@ -29,10 +29,14 @@ def parseBoolValue(val):
 
 # Keys for env config
 class Env:
-  NotFoundError = False
+    # Throw error when included file not found
+    NotFoundError = False
+    # Pandoc binary for parsing included files
+    PandocBin = None
 
-  def parse():
-      Env.NotFoundError = parseBoolValue(os.environ.get(f"PANDOC_INCLUDE_NOT_FOUND_ERROR", "0"))
+    def parse():
+        Env.NotFoundError = parseBoolValue(os.environ.get("PANDOC_INCLUDE_NOT_FOUND_ERROR", "0"))
+        Env.PandocBin = os.environ.get("PANDOC_BIN") or None
 
 
 def parseConfig(text):
