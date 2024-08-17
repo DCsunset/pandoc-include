@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/DCsunset/pandoc-include/compare/v1.3.3...v1.4.0) (2024-08-17)
+
+
+### Features
+
+* support setting custom pandoc path ([4c4c0b7](https://github.com/DCsunset/pandoc-include/commit/4c4c0b7edc6a0470f4b30f48b515e131eac380f3))
+
+
+### Bug Fixes
+
+* inherit entry entered state ([01e6330](https://github.com/DCsunset/pandoc-include/commit/01e633092f86abb9630a2f7eb1db86205a3eb8a7))
+* pass down include-entry options for path rewrite ([c5ae9ea](https://github.com/DCsunset/pandoc-include/commit/c5ae9ead1146d5fd542c047fac74e535602fd2b6))
+
+
+### Misc
+
+* update description ([9835bbb](https://github.com/DCsunset/pandoc-include/commit/9835bbbbed1414e8c1a31e730805ec9a84f20d19))
+* update test cases ([d6694df](https://github.com/DCsunset/pandoc-include/commit/d6694df7eea6cb48a7efd61c271ebff4a8a5f02d))
+
 ## [1.3.3](https://github.com/DCsunset/pandoc-include/compare/v1.3.2...v1.3.3) (2024-08-05)
 
 
