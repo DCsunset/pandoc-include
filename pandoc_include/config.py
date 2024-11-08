@@ -88,7 +88,7 @@ def parseOptions(doc):
     if os.path.isfile(TEMP_FILE):
         with open(TEMP_FILE, 'r') as f:
             # merge with default options to prevent missing keys
-            options = defaultOptions | json.load(f)
+            options = { **defaultOptions, **json.load(f) }
     else:
         # entry file (default values)
         options = defaultOptions.copy()
