@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.1](https://github.com/DCsunset/pandoc-include/compare/v1.4.0...v1.4.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* merge set with syntax supported by below Python 3.9 ([9c740f7](https://github.com/DCsunset/pandoc-include/commit/9c740f772bcd540638fc7dd6874c17fd7fb53578))
+
 ## [1.4.0](https://github.com/DCsunset/pandoc-include/compare/v1.3.3...v1.4.0) (2024-08-17)
 
 
