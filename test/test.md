@@ -14,6 +14,13 @@ pandoc-options:
 
 # Test
 
+## Dollar signs in code
+
+```
+Console.WriteLine($"T");
+Console.WriteLine($"T");
+```
+
 ## Non-existent file
 
 (Should give a warning)

@@ -1,5 +1,7 @@
+BIN ?= pandoc-include
+
 test.pdf: test.md ../pandoc_include/main.py
-	pandoc $< --filter pandoc-include -o test.pdf
+	pandoc $< --filter $(BIN) -o test.pdf
 	# pandoc $< -t json | python3 run.py | pandoc -f json -o test.pdf
 	#pandoc $< --filter pandoc-include -o test-out.pdf
 	#pandoc test.md --filter pandoc-include -o test-out.md
@@ -10,8 +12,8 @@ entryTest.pdf: entryTest/test.md ../pandoc_include/main.py
 
 .PHONY: debug
 debug:
-	pandoc debug.md -t json | python3 run.py | pandoc -f json -o debug.pdf
-	# pandoc debug.md --filter pandoc-include -o debug.pdf
+	# pandoc debug.md -t json | python3 run.py | pandoc -f json -o debug.pdf
+	pandoc debug.md --filter pandoc-include -o debug.pdf
 
 .PHONY: clean
 clean:
