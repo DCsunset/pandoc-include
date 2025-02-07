@@ -73,15 +73,18 @@ def extract_info(rawString):
 
     return includeType, filename, config
 
-def is_include_line(elem):
+def is_include_line(elem, raw=False):
     # Revert to Markdown for regex matching
-    rawString = pf.convert_text(
-        elem,
-        input_format='panflute',
-        output_format='markdown_strict',
-        standalone=True,
-        pandoc_path=Env.PandocBin
-    )
+    if not raw:
+        rawString = pf.convert_text(
+            elem,
+            input_format='panflute',
+            output_format='markdown_strict',
+            standalone=True,
+            pandoc_path=Env.PandocBin
+        )
+    else:
+        rawString = elem
 
     includeType = INCLUDE_INVALID
     config = {}
@@ -94,12 +97,7 @@ def is_include_line(elem):
 
 
 def is_code_include(elem):
-    try:
-        new_elem = pf.convert_text(elem.text, pandoc_path=Env.PandocBin)[0]
-    except:
-        return INCLUDE_INVALID, None, None
-
-    includeType, name, config = is_include_line(new_elem)
+    includeType, name, config = is_include_line(elem.text, raw=True)
     if includeType == INCLUDE_HEADER:
         pf.debug("[WARN] Invalid !include-header in code blocks")
         includeType = INCLUDE_INVALID
