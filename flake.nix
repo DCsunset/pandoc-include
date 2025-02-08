@@ -29,6 +29,24 @@
             packages = deps;
           };
         };
+
+        apps = {
+          release = {
+            type = "app";
+            program = pkgs.writeShellScriptBin "release" ''
+              set -e
+
+              ver=$(git cliff --bumped-version)
+              ver=''${ver:1}
+
+              sed -i "s/^version = \".*\"/version = \"$ver\"/" pyproject.toml
+              git cliff --bump -o CHANGELOG.md
+              git add -A
+              git commit -m "chore(release): v$ver"
+              git tag "v$ver"
+            '';
+          };
+        };
       };
     };
 }
