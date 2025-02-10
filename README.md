@@ -46,6 +46,29 @@ To check the version currently installed:
 pip show pandoc-include
 ```
 
+### Using pipx
+
+If `pip install` give you a `error: externally-managed-environment` error message, you may bypass this restriction using [pipx](https://github.com/pypa/pipx).
+
+To install the latest published version:
+
+```
+pipx install pandoc-include
+```
+
+To install the current (development) version hosted on the repository, use
+
+```
+pipx install --force git+https://github.com/DCsunset/pandoc-include
+```
+
+To check the version currently installed, inspect the output of 
+
+```
+pipx list
+```
+
+
 ### Using Nix
 
 `pandoc-include` is included in the Nixpkgs.
