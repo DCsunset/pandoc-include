@@ -27,7 +27,7 @@ INCLUDE_HEADER   = 2
 # Regex patterns
 RE_IS_INCLUDE_HEADER  = r"(\\?(!|\$))include-header"
 RE_IS_INCLUDE_LINE    = r"^(\\?(!|\$))include(-header)?"
-RE_INCLUDE_PATTERN    = r"^(\\?(!|\$))include(-header)?(\`(?P<args>[^\`]+(, ?[^\`]+)*)\`)? ((?P<fname>[^\`\'\"]+)|([\`\'\"])(?P<fnamealt>.+)\9)$"
+RE_INCLUDE_PATTERN    = r"^(\\?(!|\$))include(-header)?(\`(?P<args>[^\`]+(, ?[^\`]+)*)\`)?\s+((?P<fname>[^\`\'\"]+)|([\`\'\"])(?P<fnamealt>.+)\9)$"
 
 # Inherited options
 options = None
@@ -97,7 +97,7 @@ def is_include_line(elem, raw=False):
 
 
 def is_code_include(elem):
-    includeType, name, config = is_include_line(elem.text, raw=True)
+    includeType, name, config = is_include_line(elem.text.strip(), raw=True)
     if includeType == INCLUDE_HEADER:
         pf.debug("[WARN] Invalid !include-header in code blocks")
         includeType = INCLUDE_INVALID
