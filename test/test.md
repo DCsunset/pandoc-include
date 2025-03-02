@@ -65,9 +65,9 @@ $include "included/included 2.tex"
 !include 1.cpp
 ```
 
-```py
-!include `__test__.py`
-```
+  ```py
+  !include  `__test__.py` 
+  ```
 
 ```py
 !include non-exist
