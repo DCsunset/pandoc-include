@@ -7,7 +7,7 @@ packages = ["pandoc_include"]
 
 [project]
 name = "pandoc-include"
-version = "1.4.2"
+version = "1.4.3"
 description = "Pandoc filter to allow file and header includes"
 readme = "README.md"
 authors = [{name = "DCsunset", email = "DCsunset@protonmail.com"}]

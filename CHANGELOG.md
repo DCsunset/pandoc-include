@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.3] - 2025-03-03
+
+### 🐛 Bug Fixes
+
+- Fix include line regex and code include
+
+### 📚 Documentation
+
+- Added instructions to install with pipx
+
+### 🧪 Testing
+
+- Add more complex test case
+
 ## [1.4.2] - 2025-02-09
 
 ### 🐛 Bug Fixes
@@ -18,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - Remove envrc and update cliff config
 - Add script for release
 - Update flake inputs
+- *(release)* V1.4.2
 
 ## [1.4.1] - 2024-11-11
 
