@@ -76,6 +76,11 @@ def extract_info(rawString):
 def is_include_line(elem, raw=False):
     # Revert to Markdown for regex matching
     if not raw:
+        # Cheap check first: converting every paragraph with pandoc is slow,
+        # and an include line always starts with !include or $include
+        # (an escaped \!include also stringifies to !include)
+        if not pf.stringify(elem).lstrip().startswith(("!include", "$include")):
+            return INCLUDE_INVALID, None, {}
         rawString = pf.convert_text(
             elem,
             input_format='panflute',
